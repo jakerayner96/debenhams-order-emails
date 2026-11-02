@@ -126,7 +126,7 @@
   const SCENARIOS={
     confirm:[
       {id:'one',label:'One delivery',title:'One delivery from us',text:'Everything comes from the fascia on one delivery method. 1 product = no banner; 2+ products = the Delivery information banner.'},
-      {id:'split',label:'Several deliveries + brand partners',title:'Several delivery methods, brand partners last',text:'Items grouped by who delivers them and how, ordered top to bottom from fastest to slowest delivery. Brand partner (marketplace) items show the brand as "Delivered by". Banner on.'},
+      {id:'split',label:'Several deliveries + brand partners',title:'Several delivery methods, brand partners last',text:'Items grouped by who delivers them and how, ordered top to bottom from fastest to slowest delivery. Brand partner (marketplace) items show the brand as "Delivered by:". Banner on.'},
     ],
     dispatch:[
       {id:'full1',label:'Full order · 1 parcel',title:'Full order dispatched — 1 parcel',text:'All items ordered from the fascia, all dispatched at the same time in one parcel.'},
@@ -177,30 +177,30 @@
     }
     const all=sections.flatMap(x=>x.shipments), items=all.flatMap(x=>x.items);
     const subtotal=items.reduce((a,p)=>a+num(p.price)*(p.qty||1),0), delivery=all.reduce((a,x)=>a+x.cost,0);
-    const discounts=state.email==='confirm'&&s==='split'?[{label:'Staff discount',amount:money(subtotal*0.1)},{label:`${b.name} Unlimited delivery`,amount:money(METHODS[0][1])}]:[];
+    const discounts=state.email==='confirm'&&s==='split'?[{label:'Staff Discount',amount:money(subtotal*0.1)},{label:`${b.name} Unlimited Delivery`,amount:money(METHODS[0][1])}]:[];
     const off=discounts.reduce((a,d)=>a+num(d.amount),0);
     return {
-      recipient_name:'Paul', order_ref:'DUX022414707', order_date:'2 Nov 2026', payment_method:'PayPal',
+      recipient_name:'Paul', order_ref:'DUX022414707', order_date:'02/11/26', payment_method:'PayPal',
       address_lines:['Gabriella Moul','100 An Address','Train Tree House','Congleton','CW12 3RE','United Kingdom'],
       is_dispatch:state.email==='dispatch', is_partial:partial, show_banner:banner, sections,
       has_totals:state.email==='confirm', subtotal:money(subtotal), delivery:money(delivery), discounts, total:money(subtotal+delivery-off),
-      shop_url:url, delivery_url:`${url}help/delivery`, returns_url:`${url}help/returns`, faq_url:`${url}help`, terms_url:`${url}terms`, privacy_url:`${url}privacy`,
+      shop_url:url, delivery_url:`${url}help/delivery`, returns_url:`${url}help/returns`, faq_url:`${url}help`,
     };
   }
   function html(){
     let out=compiled[state.brand](data()).split('https://jakerayner96.github.io/debenhams-order-emails/').join(base);
-    // dark-mode preview: run the template's own dark rules unconditionally (the iframe can't be told the OS is dark)
-    if(state.mode==='dark') out=out.split('@media (prefers-color-scheme:dark)').join('@media all');
+    // the iframe follows the viewer's OS: Light switches the template's dark rules off, Dark runs them unconditionally
+    out=out.split('@media (prefers-color-scheme:dark)').join(state.mode==='dark'?'@media all':'@media not all');
     return out;
   }
   function tokens(){
     const b=brand(), dk=state.mode==='dark';
     const rows=dk?[['page','#0F0F0F'],['text','#FFFFFF'],['hairline','#323232'],['help tiles','#242424'],['delivery method','#70C474'],['sale price','#FF6B6B'],['banner · unchanged','#FFFBE6']]
-      :[['surface/action · Track parcel',b.action],['text/on-action',b.onAction],['text/link · footer',b.link],['surface/page',b.page],['text/primary',b.ink],['border/subtle',b.hairline],['surface/media · help tiles',b.bannerBg],['text/success · delivery method','#1F7A25'],['text/error · sale price','#C90000'],['msg--warning · banner','#FFFBE6']];
+      :[['Track parcel · every fascia','#000000'],['Track parcel ink','#FFFFFF'],['surface/page',b.page],['text/primary',b.ink],['border/subtle',b.hairline],['surface/media · help tiles',b.bannerBg],['text/success · delivery method','#1F7A25'],['text/error · sale price','#C90000'],['text/secondary · safety message','#767676'],['msg--warning · banner','#FFFBE6']];
     $('#tokens').innerHTML=rows.map(([n,c])=>`<i style="background:${c}"></i><span>${n}</span><code>${c}</code>`).join('');
     $('#tokennote').textContent=dk
       ?'Dark mode as Apple Mail, iOS Mail and Outlook (Mac, iOS, Android, Outlook.com) render it: the template swaps page, ink, hairlines and tiles, the wordmark and icons go white, and a black button turns white. Gmail apps invert colours their own way and ignore these rules.'
-      :`${b.font.split(',')[0].replace(/'/g,'')} · light ${b.light} / mid ${b.mid} / strong ${b.strong} · button ${b.btn} ${b.ctaCase==='uppercase'?'uppercase':'sentence case'}, ${b.radius}px radius. Same build as the gift card email: the fascia lives in the wordmark, button, links and type.`;
+      :`${b.font.split(',')[0].replace(/'/g,'')} · light ${b.light} / mid ${b.mid} / strong ${b.strong} · button ${b.btn} ${b.ctaCase==='uppercase'?'uppercase':'sentence case'}, ${b.radius}px radius. Same build as the gift card email: the fascia lives in the wordmark and type; Track parcel is black on every fascia, as in the Figma.`;
   }
   function scenarios(){
     const list=SCENARIOS[state.email];

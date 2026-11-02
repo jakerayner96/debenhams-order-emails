@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Render the DS icons the emails use to 2x PNGs (mail clients don't do SVG): black for light mode, white for dark.
-Source SVGs are copies of debenhamsgroup.design/assets/ds/icons/lib/icons-<name>.svg. Output: assets/icons/<name>.png + <name>-white.png.
+"""Render the DS icons the emails use to 2x PNGs (mail clients don't do SVG): black for light mode, white for dark, Grey 4 for the banner.
+Source SVGs are copies of debenhamsgroup.design/assets/ds/icons/lib/icons-<name>.svg. Output: assets/icons/<name>.png + <name>-white.png + <name>-grey.png.
 Usage: python3 tools/icons.py            (needs Google Chrome + Pillow)"""
 import json, subprocess, tempfile, pathlib
 from PIL import Image
@@ -21,5 +21,7 @@ for svg in sorted((ROOT / "assets/icons/svg").glob("*.svg")):
     black = Image.new("RGBA", im.size, (0, 0, 0, 255)); black.putalpha(im.split()[3]); black.save(png, optimize=True)
     white = Image.new("RGBA", im.size, (255, 255, 255, 255)); white.putalpha(im.split()[3])
     white.save(ROOT / "assets/icons" / f"{svg.stem}-white.png", optimize=True)
+    grey = Image.new("RGBA", im.size, (0x76, 0x76, 0x76, 255)); grey.putalpha(im.split()[3])  # Grey 4, text/secondary
+    grey.save(ROOT / "assets/icons" / f"{svg.stem}-grey.png", optimize=True)
     out[svg.stem] = {"px": im.size, "alpha": im.split()[3].getextrema()}
 print(json.dumps(out, indent=1))

@@ -34,22 +34,23 @@ const swap = (light, dark, w, h, alt, extra = '') =>
   `<img class="lm" src="${light}" width="${w}" height="${h}" alt="${alt}" style="display:block;width:${w}px;height:${h}px;${extra}">` +
   `<!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="${dark}" width="${w}" height="${h}" alt="${alt}" style="display:block;width:${w}px;height:${h}px;${extra}"></div><!--<![endif]-->`;
 
-// DS Message banner, warning tone (.msg--warning): 4px Yellow bar, Light Yellow body, 20px info icon, bold lead line. Stays light in dark mode.
+// DS Message banner, warning tone (.msg--warning) = Figma "Safety Message Banner" 745:3513: 4px Yellow bar, Light Yellow body,
+// padding 12 16 12 12, 20px Grey 4 info icon, 12 gap, 14 light black text. Stays light in dark mode.
 const banner = (b, verb) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td width="4" bgcolor="#FFD600" style="width:4px;background:#FFD600;border-radius:${b.radius}px 0 0 ${b.radius}px;font-size:1px;line-height:1px">&nbsp;</td>
-            <td bgcolor="#FFFBE6" style="background:#FFFBE6;border-radius:0 ${b.radius}px ${b.radius}px 0;padding:12px 16px 12px 12px">
+            <td width="4" bgcolor="#FFD600" style="width:4px;background:#FFD600;border-radius:4px 0 0 4px;font-size:1px;line-height:1px">&nbsp;</td>
+            <td bgcolor="#FFFBE6" style="background:#FFFBE6;border-radius:0 4px 4px 0;padding:12px 16px 12px 12px">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td width="20" valign="top" style="width:20px;padding:0 12px 0 0"><img src="${BASE}icons/info.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
-                  <td valign="top" style="font-family:${b.font};font-size:14px;line-height:20px;font-weight:${b.light};color:#060606"><span style="display:block;font-weight:${b.strong}">Delivery information</span>Your order ${verb} delivered in multiple parcels and arrive at different times. See below for delivery information on each item.</td>
+                  <td width="20" valign="middle" style="width:20px;padding:0 12px 0 0"><img src="${BASE}icons/info-grey.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
+                  <td valign="middle" style="font-family:${b.font};font-size:14px;line-height:18px;font-weight:${b.light};color:#000000">Your order ${verb} delivered in multiple parcels and arrive at different times. Please see below for delivery information on the specific items in your order.</td>
                 </tr>
               </table>
             </td>
           </tr>
         </table>`;
 
-const TILES = [['delivery_url', 'delivery-fast', 'Delivery information'], ['returns_url', 'return', 'Returns information'], ['faq_url', 'question', 'FAQs']];
+const TILES = [['delivery_url', 'delivery-fast', 'Delivery Information'], ['returns_url', 'return', 'Returns Information'], ['faq_url', 'question', 'FAQs']];
 const tiles = b => TILES.map(([url, icon, label], i) => `${i ? '            <td class="tile-gap" width="12" style="width:12px;font-size:1px;line-height:1px">&nbsp;</td>\n' : ''}            <td class="stack d-tile" width="33%" align="center" valign="top" bgcolor="${b.bannerBg}" style="background:${b.bannerBg};border-radius:${b.radius}px">
               <a class="d-ink" href="{{${url}}}" style="display:block;padding:20px 12px;font-family:${b.font};font-size:12px;line-height:16px;font-weight:${b.mid};color:${b.ink};text-decoration:none">
                 <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto">${swap(`${BASE}icons/${icon}.png`, `${BASE}icons/${icon}-white.png`, 24, 24, '')}</span>${label}
@@ -59,12 +60,14 @@ const tiles = b => TILES.map(([url, icon, label], i) => `${i ? '            <td 
 const today = new Date().toISOString().slice(0, 10);
 for (const b of brands) {
   if (b.disabled) { try { fs.unlinkSync(`template/${b.id}.html`); } catch {} console.log(`template/${b.id}.html — skipped (disabled)`); continue; }
-  const d = logoDims(b.id), dk = darkTokens(b);
+  // Track parcel is a black button on every fascia (Figma 756-6038 / 747-1765), in the fascia's type, case and radius
+  const btn = { ...b, action: '#000000', onAction: '#FFFFFF', actionHover: '#242424' };
+  const d = logoDims(b.id), dk = darkTokens(btn);
   const map = {
     BRAND: b.name, BRAND_ID: b.id, DOMAIN: b.domain, MAIL_DOMAIN: b.domain.split('/')[0], DATE: today,
     FONT: b.font, FONT_LINK: b.gfont ? `<link href="https://fonts.googleapis.com/css2?family=${b.gfont}&display=swap" rel="stylesheet" type="text/css">` : '',
     W_LIGHT: b.light, W_MID: b.mid, W_STRONG: b.strong, W_BTN: b.btn, CTA_CASE: b.ctaCase, RADIUS: b.radius + 'px',
-    ACTION: b.action, ACTION_HOVER: b.actionHover, ON_ACTION: b.onAction, LINK: b.link, PAGE: b.page, INK: b.ink,
+    ACTION: btn.action, ACTION_HOVER: btn.actionHover, ON_ACTION: btn.onAction, LINK: b.link, PAGE: b.page, INK: b.ink,
     HAIRLINE: b.hairline, TILE: b.bannerBg, SUCCESS: '#1F7A25', SALE: '#C90000', GREY: '#767676', WARN_BAR: '#FFD600', WARN_BG: '#FFFBE6',
     D_PAGE: DARK.page, D_INK: DARK.ink, D_HAIR: DARK.hair, D_TILE: DARK.tile, D_GREY: DARK.grey, D_SUCCESS: DARK.success, D_SALE: DARK.sale,
     D_ACTION: dk.action, D_ON_ACTION: dk.onAction, D_LINK: dk.link,

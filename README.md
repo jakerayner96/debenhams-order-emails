@@ -24,17 +24,18 @@ The transactional order confirmation and dispatch emails rebuilt in the same for
 
 ## Design decisions
 
-- **Same system as the gift card email.** Wordmark, then "Hi {{recipient_name}}," then the headline at 36 strong, the order number, 32px gutters (20 on mobile), the fascia's primary button at 400px, footer links in `text/link`. Type, weights, button case and radius per fascia from the DS tokens.
-- **Headlines**, sentence case like the gift card: "Thank you for your order" (+ "We'll let you know when it's on the way.") · "Your order is on its way" · "Part of your order is on its way". Section titles: Your order · We've sent these items · Awaiting dispatch from us · Coming from our brand partners.
-- **Delivery information banner** = DS Message banner, new warning tone `.msg--warning` (Yellow bar, Light Yellow body, info icon, bold lead line), added to the DS for this. Confirmation: "may be delivered…", shown for 2+ products (Figma note). Dispatch: "will be delivered…", shown when the order ships in 2+ parcels.
-- **Items**: 88×132 image, brand line (when it isn't the fascia), name, colour · size, quantity, SKU in grey (#767676). Price on the right on desktop and under the details on mobile. Sale price in `text/error` red with the was price struck through. Delivery method in `text/success` green.
-- **Track parcel** under every sent parcel, with "It can take up to 20 hours for tracking to show." Brand partner and awaiting items have no button.
-- **Help tiles** (Delivery information · Returns information · FAQs): `surface/media` tiles with DS icons, in a row on desktop and stacked on mobile.
+- **Same system as the gift card email.** Wordmark, then "Hi {{recipient_name}}," then the headline at 36 strong, the order number, 32px gutters (20 on mobile), a 400px Track parcel button, black on every fascia as in the Figma (white in dark mode), in the fascia's case and radius. Totals run full width with the discounts listed under Delivery.
+- **Safety message** closes every email (Figma "Safety Message Section"): 12 light in Grey 4 (#767676), two paragraphs, 80px below. It replaces the footer links. Type, weights, button case and radius per fascia from the DS tokens.
+- **Copy is the Figma's, word for word** (frames 747-1765 and 756-6038): "Hi Paul" · "Thank you for your order." + "We will let you know when it's on the way." · "Your order is on its way!" · "Part of your order is on its way!" · "Order Number:" · Delivery Details / Order Details (Shipping Address on the confirmation, Delivery Address on dispatch) · Your Order (centred) · We've Sent These Items · Awaiting Dispatch From Us · Coming from our brand partners · "Delivered by:" · "Colour: Blue, Size: 10" · "Quantity: 1" · "SKU:".
+- **Delivery banner** = DS Message banner, warning tone `.msg--warning` (Figma "Safety Message Banner" 745-3513: Yellow bar, Light Yellow body, 20px Grey 4 info icon, 14 light black text), under the details. Confirmation: "may be delivered…", shown for 2+ products. Dispatch: "will be delivered…", shown when the order ships in 2+ parcels.
+- **Items**: 88×132 image, brand line (when it isn't the fascia), name, colour · size, quantity, SKU in grey (#767676). Price on the right on desktop and under the details on mobile. Sale price in `text/error` red, then the was price. Delivery method in `text/success` green.
+- **Track parcel** under every sent parcel. Brand partner and awaiting items have no button.
+- **Help tiles** (Delivery Information · Returns Information · FAQs): `surface/media` tiles with DS icons, in a row on desktop and stacked on mobile.
 - **Dark mode**: `color-scheme: light dark` plus `prefers-color-scheme` rules (Apple Mail, iOS Mail, Outlook for Mac/iOS/Android) and `[data-ogsc]`/`[data-ogsb]` rules (Outlook.com). Page #0F0F0F, white ink, #323232 hairlines, #242424 tiles, the wordmark and icons swap to white PNGs, a black button turns white with black ink, the success green and sale red lighten (#70C474 / #FF6B6B). The banner and product images stay as they are. Gmail apps apply their own inversion and ignore these rules.
 
 ## Merge fields
 
-`recipient_name` · `order_ref` · `order_date` · `payment_method` · `address_lines[]` · `is_dispatch` · `is_partial` · `show_banner` · `sections[]` (`is_order` | `is_sent` | `is_awaiting` | `is_partner`, `shipments[]` → `delivered_by`, `method`, `track_url`, `items[]` → `brand`, `name`, `colour`, `size`, `qty`, `sku`, `price`, `was`, `image_url`, `url`) · `has_totals` · `subtotal` · `delivery` · `discounts[]` (`label`, `amount`) · `total` · `shop_url` · `delivery_url` · `returns_url` · `faq_url` · `terms_url` · `privacy_url`
+`recipient_name` · `order_ref` · `order_date` · `payment_method` · `address_lines[]` · `is_dispatch` · `is_partial` · `show_banner` · `sections[]` (`is_order` | `is_sent` | `is_awaiting` | `is_partner`, `shipments[]` → `delivered_by`, `method`, `track_url`, `items[]` → `brand`, `name`, `colour`, `size`, `qty`, `sku`, `price`, `was`, `image_url`, `url`) · `has_totals` · `subtotal` · `delivery` · `discounts[]` (`label`, `amount`) · `total` · `shop_url` · `delivery_url` · `returns_url` · `faq_url`
 
 ## Working on it
 

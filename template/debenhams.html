@@ -6,26 +6,25 @@
 <meta name="x-apple-disable-message-reformatting">
 <meta name="color-scheme" content="light dark">
 <meta name="supported-color-schemes" content="light dark">
-<title>{{#if is_dispatch}}{{#if is_partial}}Part of your order is on its way{{else}}Your order is on its way{{/if}}{{else}}Thank you for your order{{/if}}</title>
+<title>{{#if is_dispatch}}{{#if is_partial}}Part of your order is on its way!{{else}}Your order is on its way!{{/if}}{{else}}Thank you for your order.{{/if}}</title>
 <!--
   Debenhams order email — v1 (2026-11-02) — generated from template/order.src.html by build.mjs. Edit the source, not this file.
   One template, two emails: order confirmation (is_dispatch false) and dispatch (is_dispatch true).
   Fascia tokens (debenhamsgroup.design/assets/ds/tokens.css, [data-brand="debenhams"]):
     type            Geologica,Arial,Helvetica,sans-serif · light 300 · mid 400 · strong 600 · button 600 uppercase
     surface/page    #FFFFFF   text/primary #0F0F0F   border/subtle #E7E7E7   surface/media #F2F2F2 (help tiles)
-    surface/action  #7BE7D8 (hover #9DEDE2) with #000000 ink — Track parcel, radius 4px
-    text/link       #00787D (footer links, SemiBold, no underline)
-    text/success    #1F7A25 delivery method · text/error #C90000 sale price · text/secondary #767676 SKU, notes
+    Track parcel    #000000 (hover #242424) with #FFFFFF ink on every fascia (Figma), radius 4px
+    text/success    #1F7A25 delivery method · text/error #C90000 sale price · text/secondary #767676 safety message
     msg--warning    #FFD600 bar on #FFFBE6 — the "Delivery information" banner (DS Message banner, warning tone)
   Dark mode (prefers-color-scheme + Outlook.com [data-ogsc]/[data-ogsb]): page #0F0F0F, ink #FFFFFF, hairline #323232,
-    tiles #242424, button #7BE7D8/#000000, links #7BE7D8, success #70C474, sale #FF6B6B, grey #B5B5B5;
+    tiles #242424, button #FFFFFF/#000000, links #FFFFFF, success #70C474, sale #FF6B6B, grey #B5B5B5;
     wordmark and icons swap to their white PNGs. The banner and product images stay as they are.
   Merge fields (Mailgun handlebars):
     recipient_name, order_ref, order_date, payment_method, address_lines[], is_dispatch, is_partial, show_banner,
     sections[] { is_order | is_sent | is_awaiting | is_partner,
                  shipments[] { delivered_by, method, track_url, items[] { brand, name, colour, size, qty, sku, price, was, image_url, url } } },
     has_totals, subtotal, delivery, discounts[] { label, amount }, total,
-    shop_url, delivery_url, returns_url, faq_url, terms_url, privacy_url
+    shop_url, delivery_url, returns_url, faq_url
   Confirmation: one is_order section, shipments ordered fastest → slowest delivery; show_banner when 2+ items.
   Dispatch: is_sent sections (one per parcel, each with its Track parcel), then is_awaiting, then is_partner (brand partners last);
     show_banner when the order ships in 2+ parcels.
@@ -45,7 +44,7 @@
   img{-ms-interpolation-mode:bicubic;border:0;outline:none;text-decoration:none}
   a{text-decoration:none}
   a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !important;font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;line-height:inherit !important}
-  .btn a:hover{background:#9DEDE2 !important}
+  .btn a:hover{background:#242424 !important}
   @media screen and (max-width:599px){
     .wrap{width:100% !important}
     .gutter{padding-left:20px !important;padding-right:20px !important}
@@ -66,8 +65,8 @@
     .d-hair{border-color:#323232 !important}
     .d-rule{background:#323232 !important;background-color:#323232 !important}
     .d-tile{background:#242424 !important;background-color:#242424 !important}
-    .d-btn,.d-btn a{background:#7BE7D8 !important;background-color:#7BE7D8 !important;color:#000000 !important}
-    .d-link{color:#7BE7D8 !important}
+    .d-btn,.d-btn a{background:#FFFFFF !important;background-color:#FFFFFF !important;color:#000000 !important}
+    .d-link{color:#FFFFFF !important}
     .d-succ{color:#70C474 !important}
     .d-sale{color:#FF6B6B !important}
     .d-grey{color:#B5B5B5 !important}
@@ -78,12 +77,12 @@
   /* ===== dark mode — Outlook.com / Outlook apps that rewrite colours ===== */
   [data-ogsb] .d-page{background:#0F0F0F !important;background-color:#0F0F0F !important}
   [data-ogsc] .d-ink{color:#FFFFFF !important}
-  [data-ogsc] .d-link{color:#7BE7D8 !important}
+  [data-ogsc] .d-link{color:#FFFFFF !important}
   [data-ogsc] .d-succ{color:#70C474 !important}
   [data-ogsc] .d-sale{color:#FF6B6B !important}
   [data-ogsc] .d-grey{color:#B5B5B5 !important}
   [data-ogsb] .d-tile{background:#242424 !important;background-color:#242424 !important}
-  [data-ogsb] .d-btn,[data-ogsb] .d-btn a{background:#7BE7D8 !important;background-color:#7BE7D8 !important}
+  [data-ogsb] .d-btn,[data-ogsb] .d-btn a{background:#FFFFFF !important;background-color:#FFFFFF !important}
   [data-ogsc] .d-btn a{color:#000000 !important}
 </style>
 </head>
@@ -113,31 +112,12 @@
     <!-- ===== hero copy ===== -->
     <tr>
       <td class="gutter d-ink" align="center" style="padding:48px 32px 0 32px;font-family:Geologica,Arial,Helvetica,sans-serif;color:#0F0F0F">
-        <p style="margin:0 0 14px 0;font-size:14px;line-height:20px;font-weight:300">Hi {{recipient_name}},</p>
-        <h1 class="h1" style="margin:0 auto;font-size:36px;line-height:42px;font-weight:600;letter-spacing:-0.015em;max-width:440px">{{#if is_dispatch}}{{#if is_partial}}Part of your order is on its way{{else}}Your order is on its way{{/if}}{{else}}Thank you for your order{{/if}}</h1>
-        {{#unless is_dispatch}}<p style="margin:16px auto 0 auto;font-size:16px;line-height:24px;font-weight:300;max-width:400px">We&rsquo;ll let you know when it&rsquo;s on the way.</p>{{/unless}}
-        <p style="margin:24px 0 0 0;font-size:14px;line-height:20px;font-weight:300">Order number <span style="font-weight:600;letter-spacing:0.02em">{{order_ref}}</span></p>
+        <p style="margin:0 0 14px 0;font-size:16px;line-height:24px;font-weight:300">Hi {{recipient_name}}</p>
+        <h1 class="h1" style="margin:0 auto;font-size:36px;line-height:42px;font-weight:600;letter-spacing:-0.015em;max-width:440px">{{#if is_dispatch}}{{#if is_partial}}Part of your order is on its way!{{else}}Your order is on its way!{{/if}}{{else}}Thank you for your order.{{/if}}</h1>
+        {{#unless is_dispatch}}<p style="margin:16px auto 0 auto;font-size:16px;line-height:24px;font-weight:300;max-width:400px">We will let you know when it&rsquo;s on the way.</p>{{/unless}}
+        <p style="margin:16px 0 0 0;font-size:16px;line-height:24px;font-weight:300"><span style="font-weight:600">Order Number:</span> {{order_ref}}</p>
       </td>
     </tr>
-
-    {{#unless is_dispatch}}{{#if show_banner}}
-    <!-- ===== delivery information — DS Message banner, warning tone (confirmation: 2+ items) ===== -->
-    <tr>
-      <td class="gutter" style="padding:40px 32px 0 32px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td width="4" bgcolor="#FFD600" style="width:4px;background:#FFD600;border-radius:4px 0 0 4px;font-size:1px;line-height:1px">&nbsp;</td>
-            <td bgcolor="#FFFBE6" style="background:#FFFBE6;border-radius:0 4px 4px 0;padding:12px 16px 12px 12px">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                  <td width="20" valign="top" style="width:20px;padding:0 12px 0 0"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/info.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
-                  <td valign="top" style="font-family:Geologica,Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;font-weight:300;color:#060606"><span style="display:block;font-weight:600">Delivery information</span>Your order may be delivered in multiple parcels and arrive at different times. See below for delivery information on each item.</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table></td>
-    </tr>
-    {{/if}}{{/unless}}
 
     <!-- ===== delivery details + order details ===== -->
     <tr>
@@ -145,15 +125,15 @@
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td class="stack col" width="50%" valign="top" style="padding:0 20px 0 0">
-              <p class="d-hair" style="margin:0 0 16px 0;padding:0 0 12px 0;border-bottom:1px solid #E7E7E7;font-size:18px;line-height:24px;font-weight:600">Delivery details</p>
-              <p style="margin:0 0 4px 0;font-size:13px;line-height:18px;font-weight:600">Delivery address</p>
+              <p class="d-hair" style="margin:0 0 16px 0;padding:0 0 12px 0;border-bottom:1px solid #E7E7E7;font-size:18px;line-height:24px;font-weight:600">Delivery Details</p>
+              <p style="margin:0 0 4px 0;font-size:13px;line-height:18px;font-weight:600">{{#if is_dispatch}}Delivery Address{{else}}Shipping Address{{/if}}</p>
               <p style="margin:0;font-size:14px;line-height:20px;font-weight:300">{{#each address_lines}}{{this}}<br>{{/each}}</p>
             </td>
             <td class="stack col-last" width="50%" valign="top" style="padding:0 0 0 20px">
-              <p class="d-hair" style="margin:0 0 16px 0;padding:0 0 12px 0;border-bottom:1px solid #E7E7E7;font-size:18px;line-height:24px;font-weight:600">Order details</p>
-              <p style="margin:0 0 4px 0;font-size:13px;line-height:18px;font-weight:600">Order date</p>
+              <p class="d-hair" style="margin:0 0 16px 0;padding:0 0 12px 0;border-bottom:1px solid #E7E7E7;font-size:18px;line-height:24px;font-weight:600">Order Details</p>
+              <p style="margin:0 0 4px 0;font-size:13px;line-height:18px;font-weight:600">Order Date</p>
               <p style="margin:0 0 16px 0;font-size:14px;line-height:20px;font-weight:300">{{order_date}}</p>
-              <p style="margin:0 0 4px 0;font-size:13px;line-height:18px;font-weight:600">Payment method</p>
+              <p style="margin:0 0 4px 0;font-size:13px;line-height:18px;font-weight:600">Payment Method</p>
               <p style="margin:0;font-size:14px;line-height:20px;font-weight:300">{{payment_method}}</p>
             </td>
           </tr>
@@ -161,32 +141,44 @@
       </td>
     </tr>
 
-    {{#if is_dispatch}}{{#if show_banner}}
-    <!-- ===== delivery information — DS Message banner, warning tone (dispatch: 2+ parcels) ===== -->
+    {{#if show_banner}}
+    <!-- ===== delivery banner — DS Message banner, warning tone (confirmation: 2+ items · dispatch: 2+ parcels) ===== -->
     <tr>
-      <td class="gutter" style="padding:40px 32px 0 32px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+      <td class="gutter" style="padding:40px 32px 0 32px">{{#if is_dispatch}}<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td width="4" bgcolor="#FFD600" style="width:4px;background:#FFD600;border-radius:4px 0 0 4px;font-size:1px;line-height:1px">&nbsp;</td>
             <td bgcolor="#FFFBE6" style="background:#FFFBE6;border-radius:0 4px 4px 0;padding:12px 16px 12px 12px">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td width="20" valign="top" style="width:20px;padding:0 12px 0 0"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/info.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
-                  <td valign="top" style="font-family:Geologica,Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;font-weight:300;color:#060606"><span style="display:block;font-weight:600">Delivery information</span>Your order will be delivered in multiple parcels and arrive at different times. See below for delivery information on each item.</td>
+                  <td width="20" valign="middle" style="width:20px;padding:0 12px 0 0"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/info-grey.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
+                  <td valign="middle" style="font-family:Geologica,Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;font-weight:300;color:#000000">Your order will be delivered in multiple parcels and arrive at different times. Please see below for delivery information on the specific items in your order.</td>
                 </tr>
               </table>
             </td>
           </tr>
-        </table></td>
+        </table>{{else}}<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td width="4" bgcolor="#FFD600" style="width:4px;background:#FFD600;border-radius:4px 0 0 4px;font-size:1px;line-height:1px">&nbsp;</td>
+            <td bgcolor="#FFFBE6" style="background:#FFFBE6;border-radius:0 4px 4px 0;padding:12px 16px 12px 12px">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td width="20" valign="middle" style="width:20px;padding:0 12px 0 0"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/info-grey.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
+                  <td valign="middle" style="font-family:Geologica,Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;font-weight:300;color:#000000">Your order may be delivered in multiple parcels and arrive at different times. Please see below for delivery information on the specific items in your order.</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>{{/if}}</td>
     </tr>
-    {{/if}}{{/if}}
+    {{/if}}
 
     {{#each sections}}
     <!-- ===== section: your order · we've sent these items · awaiting dispatch · brand partners ===== -->
     <tr>
-      <td class="gutter d-ink" style="padding:48px 32px 0 32px;font-family:Geologica,Arial,Helvetica,sans-serif;color:#0F0F0F">
-        <p style="margin:0;font-size:22px;line-height:28px;font-weight:600;letter-spacing:-0.01em">{{#if is_order}}Your order{{/if}}{{#if is_sent}}We&rsquo;ve sent these items{{/if}}{{#if is_awaiting}}Awaiting dispatch from us{{/if}}{{#if is_partner}}Coming from our brand partners{{/if}}</p>
-        {{#if is_awaiting}}<p style="margin:6px 0 0 0;font-size:14px;line-height:20px;font-weight:300">We&rsquo;ll send you another email when these items are on their way.</p>{{/if}}
-        {{#if is_partner}}<p style="margin:6px 0 0 0;font-size:14px;line-height:20px;font-weight:300">Our brand partners will let you know when they&rsquo;ve sent your items.</p>{{/if}}
+      <td class="gutter d-ink"{{#if is_order}} align="center"{{/if}} style="padding:48px 32px 0 32px;font-family:Geologica,Arial,Helvetica,sans-serif;color:#0F0F0F">
+        <p style="margin:0;font-size:22px;line-height:28px;font-weight:600;letter-spacing:-0.01em">{{#if is_order}}Your Order{{/if}}{{#if is_sent}}We&rsquo;ve Sent These Items{{/if}}{{#if is_awaiting}}Awaiting Dispatch From Us{{/if}}{{#if is_partner}}Coming from our brand partners{{/if}}</p>
+        {{#if is_awaiting}}<p style="margin:6px 0 0 0;font-size:14px;line-height:20px;font-weight:300">We will send you another email when these items from your order are on their way.</p>{{/if}}
+        {{#if is_partner}}<p style="margin:6px 0 0 0;font-size:14px;line-height:20px;font-weight:300">The brand partner themselves will let you know once they have sent your items.</p>{{/if}}
         <div class="d-rule" style="margin:16px 0 0 0;height:1px;line-height:1px;font-size:1px;background:#E7E7E7">&nbsp;</div>
       </td>
     </tr>
@@ -194,7 +186,7 @@
     {{#unless @first}}<tr><td class="gutter" style="padding:24px 32px 0 32px"><div class="d-rule" style="height:1px;line-height:1px;font-size:1px;background:#E7E7E7">&nbsp;</div></td></tr>{{/unless}}
     <tr>
       <td class="gutter d-ink" style="padding:24px 32px 0 32px;font-family:Geologica,Arial,Helvetica,sans-serif;color:#0F0F0F">
-        <p style="margin:0;font-size:13px;line-height:18px;font-weight:300">Delivered by <span style="font-weight:600">{{delivered_by}}</span></p>
+        <p style="margin:0;font-size:13px;line-height:18px;font-weight:300">Delivered by: <span style="font-weight:600">{{delivered_by}}</span></p>
         <p class="d-succ" style="margin:4px 0 0 0;font-size:13px;line-height:18px;font-weight:600;color:#1F7A25">{{method}}</p>
       </td>
     </tr>
@@ -209,14 +201,14 @@
             <td valign="top" style="padding:0 0 0 16px">
               {{#if brand}}<p style="margin:0 0 2px 0;font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.02em">{{brand}}</p>{{/if}}
               <p style="margin:0;font-size:14px;line-height:20px;font-weight:600"><a class="d-ink" href="{{url}}" style="color:#0F0F0F;text-decoration:none">{{name}}</a></p>
-              <p style="margin:6px 0 0 0;font-size:13px;line-height:18px;font-weight:300">Colour <span style="font-weight:600">{{colour}}</span> &nbsp;&middot;&nbsp; Size <span style="font-weight:600">{{size}}</span></p>
-              <p style="margin:2px 0 0 0;font-size:13px;line-height:18px;font-weight:300">Quantity <span style="font-weight:600">{{qty}}</span></p>
-              <p class="d-grey" style="margin:2px 0 0 0;font-size:11px;line-height:16px;font-weight:300;color:#767676">SKU {{sku}}</p>
+              <p style="margin:6px 0 0 0;font-size:13px;line-height:18px;font-weight:300">Colour: <span style="font-weight:600">{{colour}}</span>, Size: <span style="font-weight:600">{{size}}</span></p>
+              <p style="margin:2px 0 0 0;font-size:13px;line-height:18px;font-weight:300">Quantity: <span style="font-weight:600">{{qty}}</span></p>
+              <p style="margin:2px 0 0 0;font-size:11px;line-height:16px;font-weight:300;color:#0F0F0F">SKU: {{sku}}</p>
               <!-- price under the details on mobile -->
-              <div class="mp" style="display:none;max-height:0;overflow:hidden;mso-hide:all;margin:8px 0 0 0;font-size:14px;line-height:20px">{{#if was}}<span class="d-sale" style="font-weight:600;color:#C90000">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:300;text-decoration:line-through">{{was}}</span>{{else}}<span style="font-weight:600">{{price}}</span>{{/if}}</div>
+              <div class="mp" style="display:none;max-height:0;overflow:hidden;mso-hide:all;margin:8px 0 0 0;font-size:14px;line-height:20px">{{#if was}}<span class="d-sale" style="font-weight:600;color:#C90000">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:600">{{was}}</span>{{else}}<span style="font-weight:600">{{price}}</span>{{/if}}</div>
             </td>
             <!-- price right on desktop -->
-            <td class="pcol" width="120" valign="bottom" align="right" style="width:120px;padding:0 0 0 12px;font-size:14px;line-height:20px;white-space:nowrap">{{#if was}}<span class="d-sale" style="font-weight:600;color:#C90000">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:300;text-decoration:line-through">{{was}}</span>{{else}}<span style="font-weight:600">{{price}}</span>{{/if}}</td>
+            <td class="pcol" width="120" valign="bottom" align="right" style="width:120px;padding:0 0 0 12px;font-size:14px;line-height:20px;white-space:nowrap">{{#if was}}<span class="d-sale" style="font-weight:600;color:#C90000">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:600">{{was}}</span>{{else}}<span style="font-weight:600">{{price}}</span>{{/if}}</td>
           </tr>
         </table>
       </td>
@@ -228,26 +220,23 @@
       <td class="gutter" align="center" style="padding:28px 32px 0 32px">
         <table role="presentation" class="w400" width="400" cellpadding="0" cellspacing="0" border="0" style="width:400px;max-width:400px">
           <tr>
-            <td class="btn d-btn" align="center" bgcolor="#7BE7D8" style="border-radius:4px;background:#7BE7D8">
-              <a href="{{track_url}}" style="display:block;padding:13px 24px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;color:#000000;border-radius:4px;background:#7BE7D8">Track parcel</a>
+            <td class="btn d-btn" align="center" bgcolor="#000000" style="border-radius:4px;background:#000000">
+              <a href="{{track_url}}" style="display:block;padding:13px 24px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;color:#FFFFFF;border-radius:4px;background:#000000">Track parcel</a>
             </td>
           </tr>
         </table>
       </td>
-    </tr>
-    <tr>
-      <td class="gutter d-grey" align="center" style="padding:10px 32px 0 32px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;font-weight:300;color:#767676">It can take up to 20 hours for tracking to show.</td>
     </tr>
     {{/if}}
     {{/each}}
     {{/each}}
 
     {{#if has_totals}}
-    <!-- ===== totals ===== -->
+    <!-- ===== totals — full width, discounts listed under delivery ===== -->
     <tr><td class="gutter" style="padding:32px 32px 0 32px"><div class="d-rule" style="height:1px;line-height:1px;font-size:1px;background:#E7E7E7">&nbsp;</div></td></tr>
     <tr>
-      <td class="gutter d-ink" align="right" style="padding:24px 32px 0 32px;font-family:Geologica,Arial,Helvetica,sans-serif;color:#0F0F0F">
-        <table role="presentation" class="tot" width="300" cellpadding="0" cellspacing="0" border="0" align="right" style="width:300px">
+      <td class="gutter d-ink" style="padding:24px 32px 0 32px;font-family:Geologica,Arial,Helvetica,sans-serif;color:#0F0F0F">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:300">Subtotal</td>
             <td align="right" style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:300">{{subtotal}}</td>
@@ -257,13 +246,13 @@
             <td align="right" style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:300">{{delivery}}</td>
           </tr>
           {{#if discounts}}
-          <tr><td colspan="2" align="right" style="padding:4px 0 4px 0;font-size:12px;line-height:16px;font-weight:600">Discounts included</td></tr>
+          <tr><td colspan="2" style="padding:4px 0 4px 0;font-size:12px;line-height:16px;font-weight:600">Discounts Included:</td></tr>
           {{#each discounts}}
-          <tr><td colspan="2" align="right" style="padding:0 0 4px 0;font-size:12px;line-height:16px;font-weight:300">{{label}} (&minus;{{amount}})</td></tr>
+          <tr><td colspan="2" style="padding:0 0 4px 0;font-size:12px;line-height:16px;font-weight:300">{{label}} (- {{amount}})</td></tr>
           {{/each}}
           {{/if}}
           <tr>
-            <td class="d-hair" style="padding:14px 0 0 0;border-top:1px solid #E7E7E7;font-size:16px;line-height:24px;font-weight:600">Order total</td>
+            <td class="d-hair" style="padding:14px 0 0 0;border-top:1px solid #E7E7E7;font-size:16px;line-height:24px;font-weight:600">Order Total</td>
             <td class="d-hair" align="right" style="padding:14px 0 0 0;border-top:1px solid #E7E7E7;font-size:16px;line-height:24px;font-weight:600">{{total}}</td>
           </tr>
         </table>
@@ -278,13 +267,13 @@
           <tr>
             <td class="stack d-tile" width="33%" align="center" valign="top" bgcolor="#F2F2F2" style="background:#F2F2F2;border-radius:4px">
               <a class="d-ink" href="{{delivery_url}}" style="display:block;padding:20px 12px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:400;color:#0F0F0F;text-decoration:none">
-                <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/delivery-fast.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/delivery-fast-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>Delivery information
+                <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/delivery-fast.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/delivery-fast-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>Delivery Information
               </a>
             </td>
             <td class="tile-gap" width="12" style="width:12px;font-size:1px;line-height:1px">&nbsp;</td>
             <td class="stack d-tile" width="33%" align="center" valign="top" bgcolor="#F2F2F2" style="background:#F2F2F2;border-radius:4px">
               <a class="d-ink" href="{{returns_url}}" style="display:block;padding:20px 12px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:400;color:#0F0F0F;text-decoration:none">
-                <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/return.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/return-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>Returns information
+                <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/return.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/return-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>Returns Information
               </a>
             </td>
             <td class="tile-gap" width="12" style="width:12px;font-size:1px;line-height:1px">&nbsp;</td>
@@ -298,10 +287,11 @@
       </td>
     </tr>
 
-    <!-- ===== footer ===== -->
+    <!-- ===== safety message — text/secondary (Grey 4), Figma "Safety Message Section" ===== -->
     <tr>
-      <td class="gutter d-ink" align="center" style="padding:40px 32px 44px 32px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;font-weight:600;color:#0F0F0F">
-        <a class="d-link" href="{{terms_url}}" style="color:#00787D;text-decoration:none">Terms &amp; conditions</a>&nbsp;&nbsp;<span style="font-weight:300">·</span>&nbsp;&nbsp;<a class="d-link" href="{{privacy_url}}" style="color:#00787D;text-decoration:none">Privacy policy</a>&nbsp;&nbsp;<span style="font-weight:300">·</span>&nbsp;&nbsp;<a class="d-link" href="mailto:customerservices@debenhams.com" style="color:#00787D;text-decoration:none">Help</a>
+      <td class="gutter d-grey" style="padding:40px 32px 80px 32px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:12px;line-height:15px;font-weight:300;color:#767676">
+        <p style="margin:0 0 15px 0">We, and our delivery partners, will never contact you asking for additional payments or delivery fees. We will also never contact you about changes to your order or return unless you have first contacted us through our official channels.</p>
+        <p style="margin:0">If you receive an unexpected call, text, email or message claiming to be from us or one of our couriers, please don&rsquo;t click any links, share personal or payment details, or make a payment. Instead, contact our Customer Services team directly through our website or app.</p>
       </td>
     </tr>
 
