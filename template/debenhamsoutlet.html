@@ -56,7 +56,7 @@
     .pcol{display:none !important}
     .mp{display:block !important;max-height:none !important;overflow:visible !important}
     .tot{width:100% !important}
-    .tile-gap{display:block !important;width:100% !important;height:12px !important;line-height:12px !important}
+    .tile-gap{display:block !important;width:100% !important;height:16px !important;line-height:16px !important}
   }
   /* ===== dark mode — Apple Mail, iOS Mail, Outlook for Mac/iOS/Android, Samsung, Thunderbird ===== */
   @media (prefers-color-scheme:dark){
@@ -150,7 +150,7 @@
             <td bgcolor="#FFFBE6" style="background:#FFFBE6;border-radius:0 4px 4px 0;padding:12px 16px 12px 12px">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td width="20" valign="middle" style="width:20px;padding:0 12px 0 0"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/info-grey.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
+                  <td width="20" valign="middle" style="width:20px;padding:0 12px 0 0"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/info.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
                   <td valign="middle" style="font-family:Geologica,Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;font-weight:400;color:#000000">Your order will be delivered in multiple parcels and arrive at different times. Please see below for delivery information on the specific items in your order.</td>
                 </tr>
               </table>
@@ -162,7 +162,7 @@
             <td bgcolor="#FFFBE6" style="background:#FFFBE6;border-radius:0 4px 4px 0;padding:12px 16px 12px 12px">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td width="20" valign="middle" style="width:20px;padding:0 12px 0 0"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/info-grey.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
+                  <td width="20" valign="middle" style="width:20px;padding:0 12px 0 0"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/info.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
                   <td valign="middle" style="font-family:Geologica,Arial,Helvetica,sans-serif;font-size:14px;line-height:18px;font-weight:400;color:#000000">Your order may be delivered in multiple parcels and arrive at different times. Please see below for delivery information on the specific items in your order.</td>
                 </tr>
               </table>
@@ -232,28 +232,29 @@
     {{/each}}
 
     {{#if has_totals}}
-    <!-- ===== totals — full width, discounts listed under delivery ===== -->
+    <!-- ===== totals — full width, discounts right-aligned under delivery (Figma 745-5971) ===== -->
     <tr><td class="gutter" style="padding:32px 32px 0 32px"><div class="d-rule" style="height:1px;line-height:1px;font-size:1px;background:#E7E7E7">&nbsp;</div></td></tr>
     <tr>
       <td class="gutter d-ink" style="padding:24px 32px 0 32px;font-family:Geologica,Arial,Helvetica,sans-serif;color:#0F0F0F">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:400">Subtotal</td>
-            <td align="right" style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:400">{{subtotal}}</td>
+            <td style="padding:0;font-size:14px;line-height:20px;font-weight:400">Subtotal</td>
+            <td align="right" style="padding:0;font-size:14px;line-height:20px;font-weight:400">{{subtotal}}</td>
           </tr>
           <tr>
-            <td style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:400">Delivery</td>
-            <td align="right" style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:400">{{delivery}}</td>
+            <td style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:400">Delivery</td>
+            <td align="right" style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:400">{{delivery}}</td>
           </tr>
           {{#if discounts}}
-          <tr><td colspan="2" style="padding:4px 0 4px 0;font-size:12px;line-height:16px;font-weight:700">Discounts Included:</td></tr>
+          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:13px;line-height:16px;font-weight:500">Discounts Included:</td></tr>
           {{#each discounts}}
-          <tr><td colspan="2" style="padding:0 0 4px 0;font-size:12px;line-height:16px;font-weight:400">{{label}} (- {{amount}})</td></tr>
+          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:13px;line-height:16px;font-weight:400">{{label}} (- {{amount}})</td></tr>
           {{/each}}
           {{/if}}
+          <tr><td colspan="2" style="height:16px;line-height:16px;font-size:1px">&nbsp;</td></tr>
           <tr>
-            <td class="d-hair" style="padding:14px 0 0 0;border-top:1px solid #E7E7E7;font-size:16px;line-height:24px;font-weight:700">Order Total</td>
-            <td class="d-hair" align="right" style="padding:14px 0 0 0;border-top:1px solid #E7E7E7;font-size:16px;line-height:24px;font-weight:700">{{total}}</td>
+            <td class="d-hair" style="padding:16px 0 0 0;border-top:1px solid #E7E7E7;font-size:16px;line-height:24px;font-weight:700">Order Total</td>
+            <td class="d-hair" align="right" style="padding:16px 0 0 0;border-top:1px solid #E7E7E7;font-size:16px;line-height:24px;font-weight:700">{{total}}</td>
           </tr>
         </table>
       </td>
@@ -265,19 +266,19 @@
       <td class="gutter" style="padding:48px 32px 0 32px">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td class="stack d-tile" width="33%" align="center" valign="top" bgcolor="#F2F2F2" style="background:#F2F2F2;border-radius:4px">
+            <td class="stack d-tile" width="168" align="center" valign="top" bgcolor="#F2F2F2" style="width:168px;background:#F2F2F2;border-radius:4px">
               <a class="d-ink" href="{{delivery_url}}" style="display:block;padding:20px 12px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:500;color:#0F0F0F;text-decoration:none">
                 <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/delivery-fast.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/delivery-fast-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>Delivery Information
               </a>
             </td>
-            <td class="tile-gap" width="12" style="width:12px;font-size:1px;line-height:1px">&nbsp;</td>
-            <td class="stack d-tile" width="33%" align="center" valign="top" bgcolor="#F2F2F2" style="background:#F2F2F2;border-radius:4px">
+            <td class="tile-gap" width="16" style="width:16px;font-size:1px;line-height:1px">&nbsp;</td>
+            <td class="stack d-tile" width="168" align="center" valign="top" bgcolor="#F2F2F2" style="width:168px;background:#F2F2F2;border-radius:4px">
               <a class="d-ink" href="{{returns_url}}" style="display:block;padding:20px 12px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:500;color:#0F0F0F;text-decoration:none">
                 <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/return.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/return-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>Returns Information
               </a>
             </td>
-            <td class="tile-gap" width="12" style="width:12px;font-size:1px;line-height:1px">&nbsp;</td>
-            <td class="stack d-tile" width="33%" align="center" valign="top" bgcolor="#F2F2F2" style="background:#F2F2F2;border-radius:4px">
+            <td class="tile-gap" width="16" style="width:16px;font-size:1px;line-height:1px">&nbsp;</td>
+            <td class="stack d-tile" width="168" align="center" valign="top" bgcolor="#F2F2F2" style="width:168px;background:#F2F2F2;border-radius:4px">
               <a class="d-ink" href="{{faq_url}}" style="display:block;padding:20px 12px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:500;color:#0F0F0F;text-decoration:none">
                 <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/question.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/question-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>FAQs
               </a>

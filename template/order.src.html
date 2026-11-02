@@ -56,7 +56,7 @@
     .pcol{display:none !important}
     .mp{display:block !important;max-height:none !important;overflow:visible !important}
     .tot{width:100% !important}
-    .tile-gap{display:block !important;width:100% !important;height:12px !important;line-height:12px !important}
+    .tile-gap{display:block !important;width:100% !important;height:16px !important;line-height:16px !important}
   }
   /* ===== dark mode — Apple Mail, iOS Mail, Outlook for Mac/iOS/Android, Samsung, Thunderbird ===== */
   @media (prefers-color-scheme:dark){
@@ -208,28 +208,29 @@
     {{/each}}
 
     {{#if has_totals}}
-    <!-- ===== totals — full width, discounts listed under delivery ===== -->
+    <!-- ===== totals — full width, discounts right-aligned under delivery (Figma 745-5971) ===== -->
     <tr><td class="gutter" style="padding:32px 32px 0 32px"><div class="d-rule" style="height:1px;line-height:1px;font-size:1px;background:[[HAIRLINE]]">&nbsp;</div></td></tr>
     <tr>
       <td class="gutter d-ink" style="padding:24px 32px 0 32px;font-family:[[FONT]];color:[[INK]]">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">Subtotal</td>
-            <td align="right" style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">{{subtotal}}</td>
+            <td style="padding:0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">Subtotal</td>
+            <td align="right" style="padding:0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">{{subtotal}}</td>
           </tr>
           <tr>
-            <td style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">Delivery</td>
-            <td align="right" style="padding:0 0 8px 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">{{delivery}}</td>
+            <td style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">Delivery</td>
+            <td align="right" style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">{{delivery}}</td>
           </tr>
           {{#if discounts}}
-          <tr><td colspan="2" style="padding:4px 0 4px 0;font-size:12px;line-height:16px;font-weight:[[W_STRONG]]">Discounts Included:</td></tr>
+          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:13px;line-height:16px;font-weight:[[W_MID]]">Discounts Included:</td></tr>
           {{#each discounts}}
-          <tr><td colspan="2" style="padding:0 0 4px 0;font-size:12px;line-height:16px;font-weight:[[W_LIGHT]]">{{label}} (- {{amount}})</td></tr>
+          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:13px;line-height:16px;font-weight:[[W_LIGHT]]">{{label}} (- {{amount}})</td></tr>
           {{/each}}
           {{/if}}
+          <tr><td colspan="2" style="height:16px;line-height:16px;font-size:1px">&nbsp;</td></tr>
           <tr>
-            <td class="d-hair" style="padding:14px 0 0 0;border-top:1px solid [[HAIRLINE]];font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">Order Total</td>
-            <td class="d-hair" align="right" style="padding:14px 0 0 0;border-top:1px solid [[HAIRLINE]];font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">{{total}}</td>
+            <td class="d-hair" style="padding:16px 0 0 0;border-top:1px solid [[HAIRLINE]];font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">Order Total</td>
+            <td class="d-hair" align="right" style="padding:16px 0 0 0;border-top:1px solid [[HAIRLINE]];font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">{{total}}</td>
           </tr>
         </table>
       </td>

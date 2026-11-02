@@ -35,14 +35,14 @@ const swap = (light, dark, w, h, alt, extra = '') =>
   `<!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="${dark}" width="${w}" height="${h}" alt="${alt}" style="display:block;width:${w}px;height:${h}px;${extra}"></div><!--<![endif]-->`;
 
 // DS Message banner, warning tone (.msg--warning) = Figma "Safety Message Banner" 745:3513: 4px Yellow bar, Light Yellow body,
-// padding 12 16 12 12, 20px Grey 4 info icon, 12 gap, 14 light black text. Stays light in dark mode.
+// padding 12 16 12 12, 20px black info icon (Jake 2 Nov: black, not the Figma's grey), 12 gap, 14 light black text. Stays light in dark mode.
 const banner = (b, verb) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td width="4" bgcolor="#FFD600" style="width:4px;background:#FFD600;border-radius:4px 0 0 4px;font-size:1px;line-height:1px">&nbsp;</td>
             <td bgcolor="#FFFBE6" style="background:#FFFBE6;border-radius:0 4px 4px 0;padding:12px 16px 12px 12px">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td width="20" valign="middle" style="width:20px;padding:0 12px 0 0"><img src="${BASE}icons/info-grey.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
+                  <td width="20" valign="middle" style="width:20px;padding:0 12px 0 0"><img src="${BASE}icons/info.png" width="20" height="20" alt="" style="display:block;width:20px;height:20px"></td>
                   <td valign="middle" style="font-family:${b.font};font-size:14px;line-height:18px;font-weight:${b.light};color:#000000">Your order ${verb} delivered in multiple parcels and arrive at different times. Please see below for delivery information on the specific items in your order.</td>
                 </tr>
               </table>
@@ -50,8 +50,9 @@ const banner = (b, verb) => `<table role="presentation" width="100%" cellpadding
           </tr>
         </table>`;
 
+// 3 × 168 + 2 × 16 gap = the 536px content width; .stack makes each tile full width on mobile, .tile-gap a 16px row
 const TILES = [['delivery_url', 'delivery-fast', 'Delivery Information'], ['returns_url', 'return', 'Returns Information'], ['faq_url', 'question', 'FAQs']];
-const tiles = b => TILES.map(([url, icon, label], i) => `${i ? '            <td class="tile-gap" width="12" style="width:12px;font-size:1px;line-height:1px">&nbsp;</td>\n' : ''}            <td class="stack d-tile" width="33%" align="center" valign="top" bgcolor="${b.bannerBg}" style="background:${b.bannerBg};border-radius:${b.radius}px">
+const tiles = b => TILES.map(([url, icon, label], i) => `${i ? '            <td class="tile-gap" width="16" style="width:16px;font-size:1px;line-height:1px">&nbsp;</td>\n' : ''}            <td class="stack d-tile" width="168" align="center" valign="top" bgcolor="${b.bannerBg}" style="width:168px;background:${b.bannerBg};border-radius:${b.radius}px">
               <a class="d-ink" href="{{${url}}}" style="display:block;padding:20px 12px;font-family:${b.font};font-size:12px;line-height:16px;font-weight:${b.mid};color:${b.ink};text-decoration:none">
                 <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto">${swap(`${BASE}icons/${icon}.png`, `${BASE}icons/${icon}-white.png`, 24, 24, '')}</span>${label}
               </a>
