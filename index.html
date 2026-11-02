@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order emails · Debenhams Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+<style>
+  :root{--bg:#0F0F0F;--panel:#161616;--line:#262626;--ink:#F2F2F2;--ink-2:#9A9A9A;--ink-3:#767676;--aqua:#7BE7D8}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:300 14px/20px Geologica,ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--aqua)}
+  .app{display:grid;grid-template-rows:auto 1fr;height:100vh}
+  /* brand switcher across the top — same pattern as the gift card email and the PLP/PDP prototypes */
+  .topbar{display:flex;align-items:center;gap:16px;padding:10px 20px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5}
+  .topbar h1{margin:0;font-size:14px;line-height:20px;font-weight:600;white-space:nowrap}
+  .topbar h1 small{display:block;font-size:11px;font-weight:300;color:var(--ink-3)}
+  .brand-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+  .brand-tab{display:inline-flex;align-items:center;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink-2);font:400 12px/16px Geologica,sans-serif;cursor:pointer;white-space:nowrap}
+  .brand-tab:hover{border-color:#3a3a3a;color:var(--ink)}
+  .brand-tab[aria-selected="true"]{background:#fff;border-color:#fff;color:#000;font-weight:600}
+  .body{display:grid;grid-template-columns:300px 1fr;min-height:0}
+  aside{border-right:1px solid var(--line);background:var(--panel);padding:20px;overflow:auto;display:flex;flex-direction:column;gap:22px}
+  .eyebrow{font-size:11px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:0 0 8px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips.col{flex-direction:column;align-items:stretch}
+  .chip{border:1px solid var(--line);background:transparent;color:var(--ink-2);border-radius:999px;padding:6px 12px;font:400 13px/16px Geologica,sans-serif;cursor:pointer;text-align:left}
+  .chips.col .chip{border-radius:8px;padding:9px 12px}
+  .chip:hover{border-color:#3a3a3a;color:var(--ink)}
+  .chip.on{background:var(--aqua);border-color:var(--aqua);color:#000;font-weight:600}
+  .usecase{margin:10px 0 0;padding:12px;border:1px solid var(--line);border-radius:8px;color:var(--ink-2);font-size:12px;line-height:18px}
+  .usecase b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+  .btns{display:flex;flex-direction:column;gap:8px}
+  .bd{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:4px;border:1px solid transparent;font:600 13px/16px Geologica,sans-serif;cursor:pointer;text-decoration:none;letter-spacing:.02em}
+  .bd.pri{background:var(--aqua);color:#000;text-transform:uppercase}
+  .bd.sec{background:transparent;color:var(--ink);border-color:#3a3a3a}
+  .bd.sec:hover{border-color:var(--aqua)}
+  .note{color:var(--ink-3);font-size:12px;line-height:18px;margin:0}
+  main{display:flex;flex-direction:column;overflow:hidden}
+  .bar{display:flex;align-items:center;gap:16px;padding:12px 24px;border-bottom:1px solid var(--line);color:var(--ink-2);font-size:12px}
+  .bar b{color:var(--ink);font-weight:600}
+  .bar .sp{flex:1}
+  .stage{flex:1;overflow:auto;padding:32px;display:flex;justify-content:center;align-items:flex-start;background:radial-gradient(circle at 1px 1px,#1c1c1c 1px,transparent 1px) 0 0/24px 24px,var(--bg)}
+  .device{background:#fff;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px #2a2a2a;overflow:hidden;transition:width .2s}
+  .device iframe{display:block;width:100%;height:1600px;border:0;background:transparent}
+  .device.m{width:375px}.device.d{width:600px}.device.w{width:760px}
+  .tok{display:grid;grid-template-columns:14px 1fr auto;gap:6px 10px;align-items:center;font-size:12px;color:var(--ink-2)}
+  .tok i{width:14px;height:14px;border-radius:3px;border:1px solid #333;display:block}
+  .tok code{color:var(--ink-3);font-size:11px}
+  @media (max-width:900px){.body{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line)}.app{height:auto}main{height:auto}.stage{padding:16px}.brand-tabs{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <h1>Order emails<small>Order confirmation + dispatch · every fascia from one source template</small></h1>
+    <nav class="brand-tabs" id="brands" role="tablist" aria-label="Brand"></nav>
+  </header>
+  <div class="body">
+  <aside>
+    <div>
+      <p class="eyebrow">Email</p>
+      <div class="chips" id="email">
+        <button class="chip on" data-e="confirm">Order confirmation</button>
+        <button class="chip" data-e="dispatch">Dispatch</button>
+      </div>
+    </div>
+
+    <div>
+      <p class="eyebrow">Scenario</p>
+      <div class="chips col" id="scenario"></div>
+      <div class="usecase" id="usecase"></div>
+    </div>
+
+    <div>
+      <p class="eyebrow">Products per parcel</p>
+      <div class="chips" id="count">
+        <button class="chip" data-n="1">Single</button>
+        <button class="chip on" data-n="2">2 products</button>
+        <button class="chip" data-n="3">3 products</button>
+      </div>
+    </div>
+
+    <div>
+      <p class="eyebrow">Appearance</p>
+      <div class="chips" id="mode">
+        <button class="chip on" data-m="light">Light</button>
+        <button class="chip" data-m="dark">Dark mode</button>
+      </div>
+    </div>
+
+    <div>
+      <p class="eyebrow">Device</p>
+      <div class="chips" id="device">
+        <button class="chip" data-d="m">Mobile 375</button>
+        <button class="chip on" data-d="d">Email 600</button>
+        <button class="chip" data-d="w">Wide 760</button>
+      </div>
+    </div>
+
+    <div class="btns">
+      <a class="bd pri" id="open" href="template/debenhams.html" target="_blank">Open template</a>
+      <button class="bd sec" id="copy">Copy rendered HTML</button>
+      <button class="bd sec" id="copyjson">Copy merge data (JSON)</button>
+      <a class="bd sec" href="https://github.com/jakerayner96/debenhams-order-emails" target="_blank">Repo</a>
+    </div>
+
+    <div>
+      <p class="eyebrow">Fascia tokens in play</p>
+      <div class="tok" id="tokens"></div>
+      <p class="note" id="tokennote" style="margin-top:12px"></p>
+    </div>
+  </aside>
+
+  <main>
+    <div class="bar"><b id="title">Debenhams · Order confirmation · 600px</b><span class="sp"></span><span id="status">loading…</span></div>
+    <div class="stage"><div class="device d" id="device-frame"><iframe id="frame" title="Email preview"></iframe></div></div>
+  </main>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Scenarios = the Figma use cases (Order Emails fZlGOMy8NZR9PdWKDJ8HAG: Order Confirmation 169-1440, Dispatch Email 390-*)
+  const SCENARIOS={
+    confirm:[
+      {id:'one',label:'One delivery',title:'One delivery from us',text:'Everything comes from the fascia on one delivery method. 1 product = no banner; 2+ products = the Delivery information banner.'},
+      {id:'split',label:'Several deliveries + brand partners',title:'Several delivery methods, brand partners last',text:'Items grouped by who delivers them and how, ordered top to bottom from fastest to slowest delivery. Brand partner (marketplace) items show the brand as "Delivered by". Banner on.'},
+    ],
+    dispatch:[
+      {id:'full1',label:'Full order · 1 parcel',title:'Full order dispatched — 1 parcel',text:'All items ordered from the fascia, all dispatched at the same time in one parcel.'},
+      {id:'full2',label:'Full order · 2+ parcels',title:'Full order dispatched — 2+ parcels',text:'All items ordered from the fascia, dispatched in different parcels at the same time or already sent. A Track parcel per parcel.'},
+      {id:'part',label:'Part sent · part awaiting',title:'Part order dispatched — 2+ parcels',text:'All items ordered from the fascia, dispatched in different parcels. One parcel sent, one waiting for dispatch.'},
+      {id:'mix',label:'Sent + brand partners',title:'Fascia parcel + brand partner items',text:'A mix of fascia and brand partner (marketplace) products. Brand partners send their own emails, so their items sit at the bottom with no tracking.'},
+      {id:'all',label:'All scenarios together',title:'All scenarios together',text:'Sent · already sent · awaiting dispatch · brand partner items (more than one partner).'},
+    ],
+  };
+  const METHODS=[
+    ['Premium DPD Next Day Delivery (if ordered before 5pm Mon–Fri and before 3pm Sat–Sun)',7.99],
+    ['UK Next Day Delivery (if ordered before 10pm)',6.99],
+    ['UK Express Delivery (delivered within 2 working days)',4.99],
+    ['UK Standard Delivery (up to 3–5 working days)',3.99],
+    ['UK Super Saver Delivery (up to 5–7 working days)',2.99],
+  ];
+  const state={brand:'debenhams',email:'confirm',scenario:'one',n:2,mode:'light',device:'d'};
+  const compiled={}; let brands=[],products={};
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const frame=$('#frame'), dev=$('#device-frame'), status=$('#status'), title=$('#title');
+  const base=location.href.replace(/[?#].*$/,'').replace(/[^/]*$/,'');
+  const brand=()=>brands.find(b=>b.id===state.brand);
+  const money=v=>'£'+v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  const num=s=>parseFloat(String(s).replace(/[^0-9.]/g,''))||0;
+
+  // merge data for the chosen fascia + scenario — the shape the template expects (see the comment at the top of template/order.src.html)
+  function data(){
+    const b=brand(), P=products[b.id]||{items:[],partners:[]}, url=`https://www.${b.domain}/`;
+    let k=0; const take=n=>Array.from({length:n},()=>{const p=P.items[k++%P.items.length];return {...p,url};});
+    // brand partners: on Debenhams the real marketplace brands in its set (one brand per shipment); elsewhere the Figma's "Marketplace Seller n"
+    const sellers=[...new Set(P.partners.map(p=>p.brand))];
+    const takeP=(n,i)=>{const src=sellers.length?P.partners.filter(p=>p.brand===sellers[i%sellers.length]):P.items;return Array.from({length:sellers.length?Math.min(n,src.length):n},(_,x)=>({...src[(x+i)%src.length],url}));}; // a partner never repeats its one product
+    let t=0; const ship=(m,items,o={})=>({delivered_by:o.by||b.name,method:METHODS[m][0],cost:METHODS[m][1],items,track_url:o.track?`${url}track-order?order=DUX022414707&parcel=${++t}`:''});
+    const partner=(m,i)=>ship(m,takeP(i===1?Math.max(1,state.n-1):state.n,i),{by:sellers.length?sellers[i%sellers.length]:`Marketplace Seller ${i+1}`});
+    const n=state.n, s=state.scenario; let sections=[],banner=false,partial=false;
+    if(state.email==='confirm'){
+      const sh=s==='one'?[ship(0,take(n))]:[ship(0,take(n)),ship(2,take(n)),partner(3,0),partner(4,1)];
+      sections=[{is_order:true,shipments:sh}];
+      banner=sh.reduce((a,x)=>a+x.items.length,0)>1;
+    }else{
+      const sent=m=>({is_sent:true,shipments:[ship(m,take(n),{track:true})]});
+      if(s==='full1') sections=[sent(0)];
+      if(s==='full2') sections=[sent(0),sent(2)];
+      if(s==='part'){ sections=[sent(0),{is_awaiting:true,shipments:[ship(0,take(n))]}]; partial=true; }
+      if(s==='mix'){ sections=[sent(0),{is_partner:true,shipments:[partner(0,0)]}]; partial=true; }
+      if(s==='all'){ sections=[sent(0),sent(1),{is_awaiting:true,shipments:[ship(0,take(n))]},{is_partner:true,shipments:[partner(0,0),partner(1,1)]}]; partial=true; }
+      banner=sections.filter(x=>!x.is_awaiting).reduce((a,x)=>a+x.shipments.length,0)>1;
+    }
+    const all=sections.flatMap(x=>x.shipments), items=all.flatMap(x=>x.items);
+    const subtotal=items.reduce((a,p)=>a+num(p.price)*(p.qty||1),0), delivery=all.reduce((a,x)=>a+x.cost,0);
+    const discounts=state.email==='confirm'&&s==='split'?[{label:'Staff discount',amount:money(subtotal*0.1)},{label:`${b.name} Unlimited delivery`,amount:money(METHODS[0][1])}]:[];
+    const off=discounts.reduce((a,d)=>a+num(d.amount),0);
+    return {
+      recipient_name:'Paul', order_ref:'DUX022414707', order_date:'2 Nov 2026', payment_method:'PayPal',
+      address_lines:['Gabriella Moul','100 An Address','Train Tree House','Congleton','CW12 3RE','United Kingdom'],
+      is_dispatch:state.email==='dispatch', is_partial:partial, show_banner:banner, sections,
+      has_totals:state.email==='confirm', subtotal:money(subtotal), delivery:money(delivery), discounts, total:money(subtotal+delivery-off),
+      shop_url:url, delivery_url:`${url}help/delivery`, returns_url:`${url}help/returns`, faq_url:`${url}help`, terms_url:`${url}terms`, privacy_url:`${url}privacy`,
+    };
+  }
+  function html(){
+    let out=compiled[state.brand](data()).split('https://jakerayner96.github.io/debenhams-order-emails/').join(base);
+    // dark-mode preview: run the template's own dark rules unconditionally (the iframe can't be told the OS is dark)
+    if(state.mode==='dark') out=out.split('@media (prefers-color-scheme:dark)').join('@media all');
+    return out;
+  }
+  function tokens(){
+    const b=brand(), dk=state.mode==='dark';
+    const rows=dk?[['page','#0F0F0F'],['text','#FFFFFF'],['hairline','#323232'],['help tiles','#242424'],['delivery method','#70C474'],['sale price','#FF6B6B'],['banner · unchanged','#FFFBE6']]
+      :[['surface/action · Track parcel',b.action],['text/on-action',b.onAction],['text/link · footer',b.link],['surface/page',b.page],['text/primary',b.ink],['border/subtle',b.hairline],['surface/media · help tiles',b.bannerBg],['text/success · delivery method','#1F7A25'],['text/error · sale price','#C90000'],['msg--warning · banner','#FFFBE6']];
+    $('#tokens').innerHTML=rows.map(([n,c])=>`<i style="background:${c}"></i><span>${n}</span><code>${c}</code>`).join('');
+    $('#tokennote').textContent=dk
+      ?'Dark mode as Apple Mail, iOS Mail and Outlook (Mac, iOS, Android, Outlook.com) render it: the template swaps page, ink, hairlines and tiles, the wordmark and icons go white, and a black button turns white. Gmail apps invert colours their own way and ignore these rules.'
+      :`${b.font.split(',')[0].replace(/'/g,'')} · light ${b.light} / mid ${b.mid} / strong ${b.strong} · button ${b.btn} ${b.ctaCase==='uppercase'?'uppercase':'sentence case'}, ${b.radius}px radius. Same build as the gift card email: the fascia lives in the wordmark, button, links and type.`;
+  }
+  function scenarios(){
+    const list=SCENARIOS[state.email];
+    if(!list.some(s=>s.id===state.scenario)) state.scenario=list[0].id;
+    $('#scenario').innerHTML=list.map(s=>`<button class="chip${s.id===state.scenario?' on':''}" data-s="${s.id}">${s.label}</button>`).join('');
+    const s=list.find(x=>x.id===state.scenario); $('#usecase').innerHTML=`<b>${s.title}</b>${s.text}`;
+  }
+  function paint(){
+    const b=brand();
+    scenarios();
+    $$('#email .chip').forEach(c=>c.classList.toggle('on',c.dataset.e===state.email));
+    $$('#count .chip').forEach(c=>c.classList.toggle('on',+c.dataset.n===state.n));
+    $$('#mode .chip').forEach(c=>c.classList.toggle('on',c.dataset.m===state.mode));
+    $$('#device .chip').forEach(c=>c.classList.toggle('on',c.dataset.d===state.device));
+    dev.className='device '+state.device; dev.style.background=state.mode==='dark'?'#0F0F0F':b.page;
+    title.textContent=`${b.name} · ${state.email==='confirm'?'Order confirmation':'Dispatch'} · ${$('#scenario .chip.on').textContent} · ${state.mode==='dark'?'Dark · ':''}${({m:'375px',d:'600px',w:'760px'})[state.device]}`;
+    $('#open').href=`template/${b.id}.html`;
+    $$('.brand-tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.b===state.brand)));
+    tokens();
+    if(!compiled[state.brand]){status.textContent='loading template…';fetch(`template/${b.id}.html`).then(r=>r.text()).then(t=>{compiled[b.id]=Handlebars.compile(t);paint();}).catch(()=>{status.textContent='Serve over HTTP (python3 -m http.server 3000) — fetch of the template failed on file://';});return;}
+    frame.srcdoc=html();status.textContent=`Rendered from template/${b.id}.html with Handlebars (Mailgun syntax)`;
+    try{history.replaceState(null,'',`?brand=${b.id}&email=${state.email}&scenario=${state.scenario}&n=${state.n}&mode=${state.mode}&device=${state.device}`);}catch(e){}
+  }
+  function fit(){try{const h=frame.contentDocument&&frame.contentDocument.documentElement.scrollHeight;if(h)frame.style.height=Math.max(900,h+2)+'px';}catch(e){}}
+  frame.addEventListener('load',()=>{fit();setTimeout(fit,400);setTimeout(fit,1200);});
+  const on=(sel,key,attr,cast=v=>v)=>$(sel).addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;state[key]=cast(c.dataset[attr]);paint();});
+  on('#email','email','e'); on('#scenario','scenario','s'); on('#count','n','n',Number); on('#mode','mode','m'); on('#device','device','d');
+  $('#brands').addEventListener('click',e=>{const b=e.target.closest('.brand-tab');if(!b)return;state.brand=b.dataset.b;paint();});
+  const copy=async(text,ok)=>{try{await navigator.clipboard.writeText(text);status.textContent=ok;}catch(e){status.textContent='Copy blocked — open the template and copy from source';}};
+  $('#copy').addEventListener('click',()=>copy(compiled[state.brand](data()),'Rendered HTML copied (absolute Pages image URLs)'));
+  $('#copyjson').addEventListener('click',()=>copy(JSON.stringify(data(),(k,v)=>k==='cost'?undefined:v,2),'Merge data copied — the JSON this scenario sends to the template'));
+  Promise.all([fetch('brands.json').then(r=>r.json()),fetch('products.json').then(r=>r.json())]).then(([j,p])=>{
+    brands=j.brands.filter(b=>!b.disabled); products=p;
+    $('#brands').innerHTML=brands.map(b=>`<button class="brand-tab" role="tab" data-b="${b.id}" aria-selected="false">${b.name}</button>`).join('');
+    const q=new URLSearchParams(location.search);
+    if(brands.some(b=>b.id===q.get('brand')))state.brand=q.get('brand');
+    if(SCENARIOS[q.get('email')])state.email=q.get('email');
+    if(q.get('scenario'))state.scenario=q.get('scenario');
+    if([1,2,3].includes(+q.get('n')))state.n=+q.get('n');
+    if(['light','dark'].includes(q.get('mode')))state.mode=q.get('mode');
+    if(['m','d','w'].includes(q.get('device')))state.device=q.get('device');
+    paint();
+  }).catch(()=>{status.textContent='Serve over HTTP (python3 -m http.server 3000) — brands.json / products.json failed to load on file://';});
+})();
+</script>
+</body>
+</html>
