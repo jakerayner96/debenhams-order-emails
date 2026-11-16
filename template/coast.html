@@ -8,7 +8,7 @@
 <meta name="supported-color-schemes" content="light dark">
 <title>{{#if is_dispatch}}{{#if is_partial}}Part of your order is on its way!{{else}}Your order is on its way!{{/if}}{{else}}Thank you for your order.{{/if}}</title>
 <!--
-  Coast order email — v1 (2026-11-02) — generated from template/order.src.html by build.mjs. Edit the source, not this file.
+  Coast order email — v1 (2026-11-16) — generated from template/order.src.html by build.mjs. Edit the source, not this file.
   One template, two emails: order confirmation (is_dispatch false) and dispatch (is_dispatch true).
   Fascia tokens (debenhamsgroup.design/assets/ds/tokens.css, [data-brand="coast"]):
     type            Roboto,Arial,Helvetica,sans-serif · light 300 · mid 400 · strong 400 · button 400 uppercase
@@ -17,7 +17,7 @@
     text/success    #1F7A25 delivery method · text/error #C90000 sale price · text/secondary #767676 safety message
     msg--warning    #FFD600 bar on #FFFBE6 — the "Delivery information" banner (DS Message banner, warning tone)
   Dark mode (prefers-color-scheme + Outlook.com [data-ogsc]/[data-ogsb]): page #0F0F0F, ink #FFFFFF, hairline #323232,
-    tiles #242424, button #FFFFFF/#000000, links #FFFFFF, success #70C474, sale #FF6B6B, grey #B5B5B5;
+    tiles #242424, button #FFFFFF/#000000, links #FFFFFF, success #70C474, sale #FF5252, grey #B5B5B5;
     wordmark and icons swap to their white PNGs. The banner and product images stay as they are.
   Merge fields (Mailgun handlebars):
     recipient_name, order_ref, order_date, payment_method, address_lines[], is_dispatch, is_partial, show_banner,
@@ -68,7 +68,7 @@
     .d-btn,.d-btn a{background:#FFFFFF !important;background-color:#FFFFFF !important;color:#000000 !important}
     .d-link{color:#FFFFFF !important}
     .d-succ{color:#70C474 !important}
-    .d-sale{color:#FF6B6B !important}
+    .d-sale{color:#FF5252 !important}
     .d-grey{color:#B5B5B5 !important}
     .lm{display:none !important;max-height:0 !important;overflow:hidden !important}
     .dm{display:block !important;max-height:none !important;overflow:visible !important}
@@ -79,7 +79,7 @@
   [data-ogsc] .d-ink{color:#FFFFFF !important}
   [data-ogsc] .d-link{color:#FFFFFF !important}
   [data-ogsc] .d-succ{color:#70C474 !important}
-  [data-ogsc] .d-sale{color:#FF6B6B !important}
+  [data-ogsc] .d-sale{color:#FF5252 !important}
   [data-ogsc] .d-grey{color:#B5B5B5 !important}
   [data-ogsb] .d-tile{background:#242424 !important;background-color:#242424 !important}
   [data-ogsb] .d-btn,[data-ogsb] .d-btn a{background:#FFFFFF !important;background-color:#FFFFFF !important}
@@ -199,16 +199,16 @@
               <a href="{{url}}" style="display:block"><img src="{{image_url}}" width="88" height="132" alt="{{name}}" style="display:block;width:88px;height:132px;object-fit:cover;background:#F2F2F2"></a>
             </td>
             <td valign="top" style="padding:0 0 0 16px">
-              {{#if brand}}<p style="margin:0 0 2px 0;font-size:12px;line-height:16px;font-weight:400;letter-spacing:0.02em">{{brand}}</p>{{/if}}
+              {{#if brand}}<p style="margin:0 0 4px 0;font-size:14px;line-height:20px;font-weight:300">{{brand}}</p>{{/if}}
               <p style="margin:0;font-size:14px;line-height:20px;font-weight:400"><a class="d-ink" href="{{url}}" style="color:#0F0F0F;text-decoration:none">{{name}}</a></p>
-              <p style="margin:6px 0 0 0;font-size:13px;line-height:18px;font-weight:300">Colour: <span style="font-weight:400">{{colour}}</span>, Size: <span style="font-weight:400">{{size}}</span></p>
-              <p style="margin:2px 0 0 0;font-size:13px;line-height:18px;font-weight:300">Quantity: <span style="font-weight:400">{{qty}}</span></p>
-              <p style="margin:2px 0 0 0;font-size:11px;line-height:16px;font-weight:300;color:#0F0F0F">SKU: {{sku}}</p>
+              <p style="margin:4px 0 0 0;font-size:14px;line-height:20px;font-weight:300">Colour: <span style="font-weight:400">{{colour}}</span>, Size: <span style="font-weight:400">{{size}}</span></p>
+              <p style="margin:4px 0 0 0;font-size:14px;line-height:20px;font-weight:300">Quantity: <span style="font-weight:400">{{qty}}</span></p>
+              <p style="margin:4px 0 0 0;font-size:14px;line-height:20px;font-weight:300">SKU: {{sku}}</p>
               <!-- price under the details on mobile -->
-              <div class="mp" style="display:none;max-height:0;overflow:hidden;mso-hide:all;margin:8px 0 0 0;font-size:14px;line-height:20px">{{#if was}}<span class="d-sale" style="font-weight:400;color:#C90000">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:400">{{was}}</span>{{else}}<span style="font-weight:400">{{price}}</span>{{/if}}</div>
+              <div class="mp" style="display:none;max-height:0;overflow:hidden;mso-hide:all;margin:8px 0 0 0;font-size:14px;line-height:20px">{{#if was}}<span class="d-sale" style="font-weight:400;color:#C90000">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:300;text-decoration:line-through">{{was}}</span>{{else}}<span style="font-weight:400">{{price}}</span>{{/if}}</div>
             </td>
             <!-- price right on desktop -->
-            <td class="pcol" width="120" valign="bottom" align="right" style="width:120px;padding:0 0 0 12px;font-size:14px;line-height:20px;white-space:nowrap">{{#if was}}<span class="d-sale" style="font-weight:400;color:#C90000">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:400">{{was}}</span>{{else}}<span style="font-weight:400">{{price}}</span>{{/if}}</td>
+            <td class="pcol" width="120" valign="top" align="right" style="width:120px;padding:0 0 0 12px;font-size:14px;line-height:20px;white-space:nowrap">{{#if was}}<span class="d-sale" style="font-weight:400;color:#C90000">{{price}}</span><br><span style="font-weight:300;text-decoration:line-through">{{was}}</span>{{else}}<span style="font-weight:400">{{price}}</span>{{/if}}</td>
           </tr>
         </table>
       </td>
@@ -235,26 +235,25 @@
     <!-- ===== totals — full width, discounts right-aligned under delivery (Figma 745-5971) ===== -->
     <tr><td class="gutter" style="padding:32px 32px 0 32px"><div class="d-rule" style="height:1px;line-height:1px;font-size:1px;background:#E7E7E7">&nbsp;</div></td></tr>
     <tr>
-      <td class="gutter d-ink" style="padding:24px 32px 0 32px;font-family:Roboto,Arial,Helvetica,sans-serif;color:#0F0F0F">
+      <td class="gutter d-ink" style="padding:16px 32px 0 32px;font-family:Roboto,Arial,Helvetica,sans-serif;color:#0F0F0F">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td style="padding:0;font-size:14px;line-height:20px;font-weight:300">Subtotal</td>
-            <td align="right" style="padding:0;font-size:14px;line-height:20px;font-weight:300">{{subtotal}}</td>
+            <td style="padding:0;font-size:16px;line-height:24px;font-weight:300">Subtotal</td>
+            <td align="right" style="padding:0;font-size:16px;line-height:24px;font-weight:400">{{subtotal}}</td>
           </tr>
           <tr>
-            <td style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:300">Delivery</td>
-            <td align="right" style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:300">{{delivery}}</td>
+            <td style="padding:8px 0 0 0;font-size:16px;line-height:24px;font-weight:300">Delivery</td>
+            <td align="right" style="padding:8px 0 0 0;font-size:16px;line-height:24px;font-weight:400">{{delivery}}</td>
           </tr>
           {{#if discounts}}
-          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:13px;line-height:16px;font-weight:400">Discounts Included:</td></tr>
+          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:300">Discounts Included:</td></tr>
           {{#each discounts}}
-          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:13px;line-height:16px;font-weight:300">{{label}} (- {{amount}})</td></tr>
+          <tr><td colspan="2" align="right" style="padding:2px 0 0 0;font-size:14px;line-height:20px;font-weight:300">{{label}} (- {{amount}})</td></tr>
           {{/each}}
           {{/if}}
-          <tr><td colspan="2" style="height:16px;line-height:16px;font-size:1px">&nbsp;</td></tr>
           <tr>
-            <td class="d-hair" style="padding:16px 0 0 0;border-top:1px solid #E7E7E7;font-size:16px;line-height:24px;font-weight:400">Order Total</td>
-            <td class="d-hair" align="right" style="padding:16px 0 0 0;border-top:1px solid #E7E7E7;font-size:16px;line-height:24px;font-weight:400">{{total}}</td>
+            <td style="padding:16px 0 0 0;font-size:16px;line-height:24px;font-weight:400">Order Total</td>
+            <td align="right" style="padding:16px 0 0 0;font-size:16px;line-height:24px;font-weight:400">{{total}}</td>
           </tr>
         </table>
       </td>
@@ -263,23 +262,23 @@
 
     <!-- ===== help tiles — surface/media, DS icons ===== -->
     <tr>
-      <td class="gutter" style="padding:48px 32px 0 32px">
+      <td class="gutter" style="padding:40px 32px 0 32px">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td class="stack d-tile" width="168" align="center" valign="top" bgcolor="#F2F2F2" style="width:168px;background:#F2F2F2;border-radius:4px">
-              <a class="d-ink" href="{{delivery_url}}" style="display:block;padding:20px 12px;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:400;color:#0F0F0F;text-decoration:none">
+              <a class="d-ink" href="{{delivery_url}}" style="display:block;padding:20px 12px;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;font-weight:400;color:#0F0F0F;text-decoration:none">
                 <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/delivery-fast.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/delivery-fast-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>Delivery Information
               </a>
             </td>
             <td class="tile-gap" width="16" style="width:16px;font-size:1px;line-height:1px">&nbsp;</td>
             <td class="stack d-tile" width="168" align="center" valign="top" bgcolor="#F2F2F2" style="width:168px;background:#F2F2F2;border-radius:4px">
-              <a class="d-ink" href="{{returns_url}}" style="display:block;padding:20px 12px;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:400;color:#0F0F0F;text-decoration:none">
+              <a class="d-ink" href="{{returns_url}}" style="display:block;padding:20px 12px;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;font-weight:400;color:#0F0F0F;text-decoration:none">
                 <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/return.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/return-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>Returns Information
               </a>
             </td>
             <td class="tile-gap" width="16" style="width:16px;font-size:1px;line-height:1px">&nbsp;</td>
             <td class="stack d-tile" width="168" align="center" valign="top" bgcolor="#F2F2F2" style="width:168px;background:#F2F2F2;border-radius:4px">
-              <a class="d-ink" href="{{faq_url}}" style="display:block;padding:20px 12px;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:400;color:#0F0F0F;text-decoration:none">
+              <a class="d-ink" href="{{faq_url}}" style="display:block;padding:20px 12px;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;font-weight:400;color:#0F0F0F;text-decoration:none">
                 <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto"><img class="lm" src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/question.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"><!--[if !mso]><!--><div class="dm" style="display:none;max-height:0;overflow:hidden"><img src="https://jakerayner96.github.io/debenhams-order-emails/assets/icons/question-white.png" width="24" height="24" alt="" style="display:block;width:24px;height:24px;"></div><!--<![endif]--></span>FAQs
               </a>
             </td>
@@ -288,12 +287,19 @@
       </td>
     </tr>
 
-    <!-- ===== safety message — text/secondary (Grey 4), Figma "Safety Message Section" ===== -->
+    <!-- ===== safety message — Figma Email / Safety message (12/18 Grey 4); confirmation adds the 14-day cancellation line ===== -->
     <tr>
-      <td class="gutter d-grey" style="padding:40px 32px 80px 32px;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:12px;line-height:15px;font-weight:300;color:#767676">
-        <p style="margin:0 0 15px 0">We, and our delivery partners, will never contact you asking for additional payments or delivery fees. We will also never contact you about changes to your order or return unless you have first contacted us through our official channels.</p>
+      <td class="gutter d-grey" style="padding:32px 32px 0 32px;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;font-weight:300;color:#767676">
+        <p style="margin:0 0 12px 0">We, and our delivery partners, will never contact you asking for additional payments or delivery fees. We will also never contact you about changes to your order or return unless you have first contacted us through our official channels.</p>
         <p style="margin:0">If you receive an unexpected call, text, email or message claiming to be from us or one of our couriers, please don&rsquo;t click any links, share personal or payment details, or make a payment. Instead, contact our Customer Services team directly through our website or app.</p>
+        {{#unless is_dispatch}}<p style="margin:12px 0 0 0">You can choose to cancel your contract at any time within 14 days after receiving your order - see our <a href="{{shop_url}}help/terms-and-conditions" class="d-grey" style="color:#767676;text-decoration:underline">terms and conditions</a> for more details.</p>{{/unless}}
       </td>
+    </tr>
+
+    <!-- ===== legal — Figma Email / Legal: Grey 6 line, 16px, left-aligned 12/18 caption (placeholders until the entity wording lands) ===== -->
+    <tr><td class="gutter" style="padding:16px 32px 0 32px"><div class="d-rule" style="height:1px;line-height:1px;font-size:1px;background:#E7E7E7">&nbsp;</div></td></tr>
+    <tr>
+      <td class="gutter d-grey" align="left" style="padding:16px 32px 44px 32px;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;font-weight:300;color:#767676">This is a service email about your Coast order. Coast is a trading name of [Registered company name], registered in [England and Wales], company number [00000000]. Registered office: [Registered office address].</td>
     </tr>
 
   </table>

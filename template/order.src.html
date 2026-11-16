@@ -175,16 +175,16 @@
               <a href="{{url}}" style="display:block"><img src="{{image_url}}" width="88" height="132" alt="{{name}}" style="display:block;width:88px;height:132px;object-fit:cover;background:[[TILE]]"></a>
             </td>
             <td valign="top" style="padding:0 0 0 16px">
-              {{#if brand}}<p style="margin:0 0 2px 0;font-size:12px;line-height:16px;font-weight:[[W_STRONG]];letter-spacing:0.02em">{{brand}}</p>{{/if}}
+              {{#if brand}}<p style="margin:0 0 4px 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">{{brand}}</p>{{/if}}
               <p style="margin:0;font-size:14px;line-height:20px;font-weight:[[W_STRONG]]"><a class="d-ink" href="{{url}}" style="color:[[INK]];text-decoration:none">{{name}}</a></p>
-              <p style="margin:6px 0 0 0;font-size:13px;line-height:18px;font-weight:[[W_LIGHT]]">Colour: <span style="font-weight:[[W_STRONG]]">{{colour}}</span>, Size: <span style="font-weight:[[W_STRONG]]">{{size}}</span></p>
-              <p style="margin:2px 0 0 0;font-size:13px;line-height:18px;font-weight:[[W_LIGHT]]">Quantity: <span style="font-weight:[[W_STRONG]]">{{qty}}</span></p>
-              <p style="margin:2px 0 0 0;font-size:11px;line-height:16px;font-weight:[[W_LIGHT]];color:[[INK]]">SKU: {{sku}}</p>
+              <p style="margin:4px 0 0 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">Colour: <span style="font-weight:[[W_STRONG]]">{{colour}}</span>, Size: <span style="font-weight:[[W_STRONG]]">{{size}}</span></p>
+              <p style="margin:4px 0 0 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">Quantity: <span style="font-weight:[[W_STRONG]]">{{qty}}</span></p>
+              <p style="margin:4px 0 0 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">SKU: {{sku}}</p>
               <!-- price under the details on mobile -->
-              <div class="mp" style="display:none;max-height:0;overflow:hidden;mso-hide:all;margin:8px 0 0 0;font-size:14px;line-height:20px">{{#if was}}<span class="d-sale" style="font-weight:[[W_STRONG]];color:[[SALE]]">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:[[W_STRONG]]">{{was}}</span>{{else}}<span style="font-weight:[[W_STRONG]]">{{price}}</span>{{/if}}</div>
+              <div class="mp" style="display:none;max-height:0;overflow:hidden;mso-hide:all;margin:8px 0 0 0;font-size:14px;line-height:20px">{{#if was}}<span class="d-sale" style="font-weight:[[W_STRONG]];color:[[SALE]]">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:[[W_LIGHT]];text-decoration:line-through">{{was}}</span>{{else}}<span style="font-weight:[[W_STRONG]]">{{price}}</span>{{/if}}</div>
             </td>
             <!-- price right on desktop -->
-            <td class="pcol" width="120" valign="bottom" align="right" style="width:120px;padding:0 0 0 12px;font-size:14px;line-height:20px;white-space:nowrap">{{#if was}}<span class="d-sale" style="font-weight:[[W_STRONG]];color:[[SALE]]">{{price}}</span>&nbsp;&nbsp;<span style="font-weight:[[W_STRONG]]">{{was}}</span>{{else}}<span style="font-weight:[[W_STRONG]]">{{price}}</span>{{/if}}</td>
+            <td class="pcol" width="120" valign="top" align="right" style="width:120px;padding:0 0 0 12px;font-size:14px;line-height:20px;white-space:nowrap">{{#if was}}<span class="d-sale" style="font-weight:[[W_STRONG]];color:[[SALE]]">{{price}}</span><br><span style="font-weight:[[W_LIGHT]];text-decoration:line-through">{{was}}</span>{{else}}<span style="font-weight:[[W_STRONG]]">{{price}}</span>{{/if}}</td>
           </tr>
         </table>
       </td>
@@ -211,26 +211,25 @@
     <!-- ===== totals — full width, discounts right-aligned under delivery (Figma 745-5971) ===== -->
     <tr><td class="gutter" style="padding:32px 32px 0 32px"><div class="d-rule" style="height:1px;line-height:1px;font-size:1px;background:[[HAIRLINE]]">&nbsp;</div></td></tr>
     <tr>
-      <td class="gutter d-ink" style="padding:24px 32px 0 32px;font-family:[[FONT]];color:[[INK]]">
+      <td class="gutter d-ink" style="padding:16px 32px 0 32px;font-family:[[FONT]];color:[[INK]]">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td style="padding:0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">Subtotal</td>
-            <td align="right" style="padding:0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">{{subtotal}}</td>
+            <td style="padding:0;font-size:16px;line-height:24px;font-weight:[[W_LIGHT]]">Subtotal</td>
+            <td align="right" style="padding:0;font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">{{subtotal}}</td>
           </tr>
           <tr>
-            <td style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">Delivery</td>
-            <td align="right" style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">{{delivery}}</td>
+            <td style="padding:8px 0 0 0;font-size:16px;line-height:24px;font-weight:[[W_LIGHT]]">Delivery</td>
+            <td align="right" style="padding:8px 0 0 0;font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">{{delivery}}</td>
           </tr>
           {{#if discounts}}
-          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:13px;line-height:16px;font-weight:[[W_MID]]">Discounts Included:</td></tr>
+          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">Discounts Included:</td></tr>
           {{#each discounts}}
-          <tr><td colspan="2" align="right" style="padding:8px 0 0 0;font-size:13px;line-height:16px;font-weight:[[W_LIGHT]]">{{label}} (- {{amount}})</td></tr>
+          <tr><td colspan="2" align="right" style="padding:2px 0 0 0;font-size:14px;line-height:20px;font-weight:[[W_LIGHT]]">{{label}} (- {{amount}})</td></tr>
           {{/each}}
           {{/if}}
-          <tr><td colspan="2" style="height:16px;line-height:16px;font-size:1px">&nbsp;</td></tr>
           <tr>
-            <td class="d-hair" style="padding:16px 0 0 0;border-top:1px solid [[HAIRLINE]];font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">Order Total</td>
-            <td class="d-hair" align="right" style="padding:16px 0 0 0;border-top:1px solid [[HAIRLINE]];font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">{{total}}</td>
+            <td style="padding:16px 0 0 0;font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">Order Total</td>
+            <td align="right" style="padding:16px 0 0 0;font-size:16px;line-height:24px;font-weight:[[W_STRONG]]">{{total}}</td>
           </tr>
         </table>
       </td>
@@ -239,7 +238,7 @@
 
     <!-- ===== help tiles — surface/media, DS icons ===== -->
     <tr>
-      <td class="gutter" style="padding:48px 32px 0 32px">
+      <td class="gutter" style="padding:40px 32px 0 32px">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
 [[TILES]]
@@ -248,12 +247,19 @@
       </td>
     </tr>
 
-    <!-- ===== safety message — text/secondary (Grey 4), Figma "Safety Message Section" ===== -->
+    <!-- ===== safety message — Figma Email / Safety message (12/18 Grey 4); confirmation adds the 14-day cancellation line ===== -->
     <tr>
-      <td class="gutter d-grey" style="padding:40px 32px 80px 32px;font-family:[[FONT]];font-size:12px;line-height:15px;font-weight:[[W_LIGHT]];color:[[GREY]]">
-        <p style="margin:0 0 15px 0">We, and our delivery partners, will never contact you asking for additional payments or delivery fees. We will also never contact you about changes to your order or return unless you have first contacted us through our official channels.</p>
+      <td class="gutter d-grey" style="padding:32px 32px 0 32px;font-family:[[FONT]];font-size:12px;line-height:18px;font-weight:[[W_LIGHT]];color:[[GREY]]">
+        <p style="margin:0 0 12px 0">We, and our delivery partners, will never contact you asking for additional payments or delivery fees. We will also never contact you about changes to your order or return unless you have first contacted us through our official channels.</p>
         <p style="margin:0">If you receive an unexpected call, text, email or message claiming to be from us or one of our couriers, please don&rsquo;t click any links, share personal or payment details, or make a payment. Instead, contact our Customer Services team directly through our website or app.</p>
+        {{#unless is_dispatch}}<p style="margin:12px 0 0 0">You can choose to cancel your contract at any time within 14 days after receiving your order - see our <a href="{{shop_url}}help/terms-and-conditions" class="d-grey" style="color:[[GREY]];text-decoration:underline">terms and conditions</a> for more details.</p>{{/unless}}
       </td>
+    </tr>
+
+    <!-- ===== legal — Figma Email / Legal: Grey 6 line, 16px, left-aligned 12/18 caption (placeholders until the entity wording lands) ===== -->
+    <tr><td class="gutter" style="padding:16px 32px 0 32px"><div class="d-rule" style="height:1px;line-height:1px;font-size:1px;background:[[HAIRLINE]]">&nbsp;</div></td></tr>
+    <tr>
+      <td class="gutter d-grey" align="left" style="padding:16px 32px 44px 32px;font-family:[[FONT]];font-size:12px;line-height:18px;font-weight:[[W_LIGHT]];color:[[GREY]]">This is a service email about your [[BRAND]] order. [[BRAND]] is a trading name of [Registered company name], registered in [England and Wales], company number [00000000]. Registered office: [Registered office address].</td>
     </tr>
 
   </table>

@@ -21,7 +21,7 @@ const lum = hex => { const c = hex.replace('#', '').match(/../g).map(x => parseI
 const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
 
 // Dark mode: DS Soft Black page, white ink, Grey 6 hairlines; the fascia's button and link stay when they read on the dark page, else go white.
-const DARK = { page: '#0F0F0F', ink: '#FFFFFF', hair: '#323232', tile: '#242424', grey: '#B5B5B5', success: '#70C474', sale: '#FF6B6B' };
+const DARK = { page: '#0F0F0F', ink: '#FFFFFF', hair: '#323232', tile: '#242424', grey: '#B5B5B5', success: '#70C474', sale: '#FF5252' };
 const darkTokens = b => {
   const btnOk = contrast(b.action, DARK.page) >= 3;
   const action = btnOk ? b.action : '#FFFFFF', onAction = btnOk ? b.onAction : '#000000';
@@ -53,7 +53,7 @@ const banner = (b, verb) => `<table role="presentation" width="100%" cellpadding
 // 3 × 168 + 2 × 16 gap = the 536px content width; .stack makes each tile full width on mobile, .tile-gap a 16px row
 const TILES = [['delivery_url', 'delivery-fast', 'Delivery Information'], ['returns_url', 'return', 'Returns Information'], ['faq_url', 'question', 'FAQs']];
 const tiles = b => TILES.map(([url, icon, label], i) => `${i ? '            <td class="tile-gap" width="16" style="width:16px;font-size:1px;line-height:1px">&nbsp;</td>\n' : ''}            <td class="stack d-tile" width="168" align="center" valign="top" bgcolor="${b.bannerBg}" style="width:168px;background:${b.bannerBg};border-radius:${b.radius}px">
-              <a class="d-ink" href="{{${url}}}" style="display:block;padding:20px 12px;font-family:${b.font};font-size:12px;line-height:16px;font-weight:${b.mid};color:${b.ink};text-decoration:none">
+              <a class="d-ink" href="{{${url}}}" style="display:block;padding:20px 12px;font-family:${b.font};font-size:14px;line-height:20px;font-weight:${b.strong};color:${b.ink};text-decoration:none">
                 <span style="display:block;width:24px;height:24px;margin:0 auto 8px auto">${swap(`${BASE}icons/${icon}.png`, `${BASE}icons/${icon}-white.png`, 24, 24, '')}</span>${label}
               </a>
             </td>`).join('\n');
@@ -69,7 +69,7 @@ for (const b of brands) {
     FONT: b.font, FONT_LINK: b.gfont ? `<link href="https://fonts.googleapis.com/css2?family=${b.gfont}&display=swap" rel="stylesheet" type="text/css">` : '',
     W_LIGHT: b.light, W_MID: b.mid, W_STRONG: b.strong, W_BTN: b.btn, CTA_CASE: b.ctaCase, RADIUS: b.radius + 'px',
     ACTION: btn.action, ACTION_HOVER: btn.actionHover, ON_ACTION: btn.onAction, LINK: b.link, PAGE: b.page, INK: b.ink,
-    HAIRLINE: b.hairline, TILE: b.bannerBg, SUCCESS: '#1F7A25', SALE: '#C90000', GREY: '#767676', WARN_BAR: '#FFD600', WARN_BG: '#FFFBE6',
+    HAIRLINE: b.hairline, TILE: b.bannerBg, SUCCESS: '#1F7A25', SALE: '#C90000', GREY: b.id === 'plt' ? '#6B6B6B' : '#767676', WARN_BAR: '#FFD600', WARN_BG: '#FFFBE6',
     D_PAGE: DARK.page, D_INK: DARK.ink, D_HAIR: DARK.hair, D_TILE: DARK.tile, D_GREY: DARK.grey, D_SUCCESS: DARK.success, D_SALE: DARK.sale,
     D_ACTION: dk.action, D_ON_ACTION: dk.onAction, D_LINK: dk.link,
     BANNER: banner(b, 'may be'), BANNER_WILL: banner(b, 'will be'), TILES: tiles(b),

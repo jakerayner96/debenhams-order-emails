@@ -1,5 +1,5 @@
 {
-  "_note": "Per-fascia tokens for the order confirmation + dispatch emails. Copied 2 Nov 2026 from debenhams-giftcard-email/brands.json (computed DS tokens, synced 12 Oct 2026: font, regular / mid / strong / button weights, button case, radius, surface/action + hover, text/on-action, text/link). Dark-mode values are derived in build.mjs. Edit here, then node build.mjs.",
+  "_note": "Per-fascia tokens for the order confirmation + dispatch emails. Copied 2 Nov 2026 from debenhams-giftcard-email/brands.json (computed DS tokens, synced 12 Oct 2026: font, regular / mid / strong / button weights, button case, radius, surface/action + hover, text/on-action, text/link). Dark-mode values are derived in build.mjs. Edit here, then node build.mjs. 16 Nov 2026: aligned to the Emails - 2026 Figma (XbDt0A59FmPQN3pj7RevaG) — KM black, Burton navy #284D7B, PLT hairline #E7E7E7 (DS variables).",
   "brands": [
     {
       "id": "debenhams",
@@ -82,7 +82,7 @@
       "link": "#550503",
       "page": "#FFFDF7",
       "ink": "#0F0F0F",
-      "hairline": "#F3EAE8",
+      "hairline": "#E7E7E7",
       "bannerBg": "#FAF5E7"
     },
     {
@@ -97,10 +97,10 @@
       "btn": 400,
       "ctaCase": "none",
       "radius": 4,
-      "action": "#D24508",
-      "actionHover": "#892D05",
+      "action": "#000000",
+      "actionHover": "#242424",
       "onAction": "#FFFFFF",
-      "link": "#892D05",
+      "link": "#000000",
       "page": "#FFFFFF",
       "ink": "#0F0F0F",
       "hairline": "#E7E7E7",
@@ -181,10 +181,10 @@
       "btn": 600,
       "ctaCase": "uppercase",
       "radius": 4,
-      "action": "#000000",
-      "actionHover": "#242424",
+      "action": "#284D7B",
+      "actionHover": "#203E62",
       "onAction": "#FFFFFF",
-      "link": "#000000",
+      "link": "#284D7B",
       "page": "#FFFFFF",
       "ink": "#0F0F0F",
       "hairline": "#E7E7E7",
