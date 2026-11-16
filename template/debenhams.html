@@ -13,11 +13,11 @@
   Fascia tokens (debenhamsgroup.design/assets/ds/tokens.css, [data-brand="debenhams"]):
     type            Geologica,Arial,Helvetica,sans-serif · light 300 · mid 400 · strong 600 · button 600 uppercase
     surface/page    #FFFFFF   text/primary #0F0F0F   border/subtle #E7E7E7   surface/media #F2F2F2 (help tiles)
-    Track parcel    #000000 (hover #242424) with #FFFFFF ink on every fascia (Figma), radius 4px
+    Track parcel    #7BE7D8 (hover #9DEDE2) with #000000 ink = the fascia CTA, same as the gift card Shop now, radius 4px
     text/success    #1F7A25 delivery method · text/error #C90000 sale price · text/secondary #767676 safety message
     msg--warning    #FFD600 bar on #FFFBE6 — the "Delivery information" banner (DS Message banner, warning tone)
   Dark mode (prefers-color-scheme + Outlook.com [data-ogsc]/[data-ogsb]): page #0F0F0F, ink #FFFFFF, hairline #323232,
-    tiles #242424, button #FFFFFF/#000000, links #FFFFFF, success #70C474, sale #FF5252, grey #B5B5B5;
+    tiles #242424, button #7BE7D8/#000000, links #7BE7D8, success #70C474, sale #FF5252, grey #B5B5B5;
     wordmark and icons swap to their white PNGs. The banner and product images stay as they are.
   Merge fields (Mailgun handlebars):
     recipient_name, order_ref, order_date, payment_method, address_lines[], is_dispatch, is_partial, show_banner,
@@ -44,7 +44,7 @@
   img{-ms-interpolation-mode:bicubic;border:0;outline:none;text-decoration:none}
   a{text-decoration:none}
   a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !important;font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;line-height:inherit !important}
-  .btn a:hover{background:#242424 !important}
+  .btn a:hover{background:#9DEDE2 !important}
   @media screen and (max-width:599px){
     .wrap{width:100% !important}
     .gutter{padding-left:20px !important;padding-right:20px !important}
@@ -65,8 +65,8 @@
     .d-hair{border-color:#323232 !important}
     .d-rule{background:#323232 !important;background-color:#323232 !important}
     .d-tile{background:#242424 !important;background-color:#242424 !important}
-    .d-btn,.d-btn a{background:#FFFFFF !important;background-color:#FFFFFF !important;color:#000000 !important}
-    .d-link{color:#FFFFFF !important}
+    .d-btn,.d-btn a{background:#7BE7D8 !important;background-color:#7BE7D8 !important;color:#000000 !important}
+    .d-link{color:#7BE7D8 !important}
     .d-succ{color:#70C474 !important}
     .d-sale{color:#FF5252 !important}
     .d-grey{color:#B5B5B5 !important}
@@ -77,12 +77,12 @@
   /* ===== dark mode — Outlook.com / Outlook apps that rewrite colours ===== */
   [data-ogsb] .d-page{background:#0F0F0F !important;background-color:#0F0F0F !important}
   [data-ogsc] .d-ink{color:#FFFFFF !important}
-  [data-ogsc] .d-link{color:#FFFFFF !important}
+  [data-ogsc] .d-link{color:#7BE7D8 !important}
   [data-ogsc] .d-succ{color:#70C474 !important}
   [data-ogsc] .d-sale{color:#FF5252 !important}
   [data-ogsc] .d-grey{color:#B5B5B5 !important}
   [data-ogsb] .d-tile{background:#242424 !important;background-color:#242424 !important}
-  [data-ogsb] .d-btn,[data-ogsb] .d-btn a{background:#FFFFFF !important;background-color:#FFFFFF !important}
+  [data-ogsb] .d-btn,[data-ogsb] .d-btn a{background:#7BE7D8 !important;background-color:#7BE7D8 !important}
   [data-ogsc] .d-btn a{color:#000000 !important}
 </style>
 </head>
@@ -220,8 +220,8 @@
       <td class="gutter" align="center" style="padding:28px 32px 0 32px">
         <table role="presentation" class="w400" width="400" cellpadding="0" cellspacing="0" border="0" style="width:400px;max-width:400px">
           <tr>
-            <td class="btn d-btn" align="center" bgcolor="#000000" style="border-radius:4px;background:#000000">
-              <a href="{{track_url}}" style="display:block;padding:13px 24px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;color:#FFFFFF;border-radius:4px;background:#000000">Track parcel</a>
+            <td class="btn d-btn" align="center" bgcolor="#7BE7D8" style="border-radius:4px;background:#7BE7D8">
+              <a href="{{track_url}}" style="display:block;padding:13px 24px;font-family:Geologica,Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;color:#000000;border-radius:4px;background:#7BE7D8">Track parcel</a>
             </td>
           </tr>
         </table>

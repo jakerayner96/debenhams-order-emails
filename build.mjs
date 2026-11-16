@@ -23,8 +23,8 @@ const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - 
 // Dark mode: DS Soft Black page, white ink, Grey 6 hairlines; the fascia's button and link stay when they read on the dark page, else go white.
 const DARK = { page: '#0F0F0F', ink: '#FFFFFF', hair: '#323232', tile: '#242424', grey: '#B5B5B5', success: '#70C474', sale: '#FF5252' };
 const darkTokens = b => {
-  const btnOk = contrast(b.action, DARK.page) >= 3;
-  const action = btnOk ? b.action : '#FFFFFF', onAction = btnOk ? b.onAction : '#000000';
+  // dark button = the gift card's rule (Figma Emails - 2026): Debenhams keeps aqua, PLT cream on plum, everyone else white on black
+  const [action, onAction] = b.id === 'debenhams' ? [b.action, b.onAction] : b.id === 'plt' ? ['#FFE4D2', '#550503'] : ['#FFFFFF', '#000000'];
   const link = contrast(b.link, DARK.page) >= 4.5 ? b.link : contrast(b.action, DARK.page) >= 4.5 ? b.action : '#FFFFFF';
   return { action, onAction, link };
 };
@@ -62,8 +62,8 @@ const tiles = b => TILES.map(([url, icon, label], i) => `${i ? '            <td 
 const today = new Date().toISOString().slice(0, 10);
 for (const b of brands) {
   if (b.disabled) { try { fs.unlinkSync(`template/${b.id}.html`); } catch {} console.log(`template/${b.id}.html — skipped (disabled)`); continue; }
-  // Track parcel is a black button on every fascia (Figma 756-6038 / 747-1765), in the fascia's type, case and radius
-  const btn = { ...b, action: '#000000', onAction: '#FFFFFF', actionHover: '#242424' };
+  // Track parcel = the fascia's primary CTA, same colours as Shop now on the gift card (Jake 16 Nov: consistency; was black everywhere)
+  const btn = b;
   const d = logoDims(b.id), dk = darkTokens(btn);
   const map = {
     BRAND: b.name, BRAND_ID: b.id, DOMAIN: b.domain, MAIL_DOMAIN: b.domain.split('/')[0], DATE: today,
